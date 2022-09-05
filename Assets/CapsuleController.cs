@@ -7,18 +7,25 @@ using UnityEngine;
 public class CapsuleController : MonoBehaviour
 {
     Rigidbody rb;
-    Vector3 controlVector;
+
+    bool buttonPressed = false;
+    bool engineFinish = false;
+    bool engineStart = false;
     float controlAngle = 0.0f;
-    float speed;
-    bool buttonPressed;
-    bool resetControlAngle = false;
-    
-    public float maxSpeed;
-    public float speedTaper;
-    public float rotateSpeed;
+    Vector3 controlVector;
+   
+    public ParticleSystem psThrust;
+    public float movementForce = 100.0f;
+    public float engineStartJerkFactor = 80.0f;
+    public float maxSpeed = 2.0f;
+    public float velocityTaper = 0.985f;
+    public float rotateSpeedDegrees = 135.0f;
+    public float controlAngleSpeedDegrees = 180.0f;
+    public float lateralDriftCorrectionFactor = 100.0f;
+    public float mainThrustDeadzone = 0.5f;
 
 #if DEBUG_MODE
-    uint qsize = 6;  // number of messages to keep
+    uint qsize = 4;  // number of messages to keep
     Queue myLogQueue = new Queue();
 #endif // DEBUG_MODE
 
@@ -26,7 +33,7 @@ public class CapsuleController : MonoBehaviour
     void Start()
     {
 #if DEBUG_MODE
-        Debug.Log("Started up logging.");
+        Debug.Log( "Started up logging." );
 #endif // DEBUG_MODE
 
         rb = GetComponent<Rigidbody>();
@@ -36,60 +43,85 @@ public class CapsuleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+        if ( Input.GetKeyDown( "space" ) )
         {
             buttonPressed = true;
+            engineStart = true;
         }
-        else if(Input.GetKeyUp("space"))
+        else if ( Input.GetKeyUp( "space" ) )
         {
             buttonPressed = false;
-            resetControlAngle = true;
+            engineFinish = true;
         }
     }
 
     // Framerate independent update
     void FixedUpdate()
     {
-        // Update angle of newDirection.
-        if (buttonPressed) { speed = maxSpeed; }
-        if (resetControlAngle) { controlAngle = 0; }
-        speed *= speedTaper;
+        if ( engineFinish )
+        {
+            controlAngle = 0;
+            psThrust.Stop();
+            engineFinish = false;
+        }
 
-        // Once facing desired direction, fire main thruster
-        if (Vector3.Angle(transform.forward, controlVector) < 1.0f && buttonPressed)
+        if ( Vector3.Angle( transform.forward, controlVector ) < mainThrustDeadzone && buttonPressed ) // THRUST
         {
-            rb.AddForce(transform.forward * speed * Time.fixedDeltaTime);
-            Debug.Log("BURN \n");
+#if DEBUG_MODE
+            Debug.Log( "BURN" );
+#endif // DEBUG_MODE
+
+            if ( engineStart )
+            {
+                rb.AddForce( transform.forward * movementForce * engineStartJerkFactor * Time.fixedDeltaTime );
+                psThrust.Play();
+                engineStart = false;
+            }
+
+            rb.AddForce( transform.forward * movementForce * Time.fixedDeltaTime );
+
+            float lateralDriftCorrectionForce = -rb.velocity.x * transform.forward.z + rb.velocity.z * transform.forward.x;
+            rb.AddForce( lateralDriftCorrectionForce * lateralDriftCorrectionFactor * transform.right * Time.fixedDeltaTime );
         }
-        // Until facing desired direction, fire RCS thrusters (rotate)
-        else if (transform.forward != controlVector && buttonPressed)
+        else if ( transform.forward != controlVector && buttonPressed ) // RCS
         {
-            Quaternion targetRotation = Quaternion.LookRotation(controlVector);
-            Quaternion moveToRotation = Quaternion.RotateTowards(rb.rotation, targetRotation, Time.fixedDeltaTime * rotateSpeed);
-            rb.MoveRotation(moveToRotation);
-            Debug.Log("RCS \n");
+#if DEBUG_MODE
+            Debug.Log( "RCS" );
+#endif // DEBUG_MODE
+
+            Quaternion targetRotation = Quaternion.LookRotation( controlVector );
+            Quaternion moveToRotation = Quaternion.RotateTowards( rb.rotation, targetRotation, Time.fixedDeltaTime * rotateSpeedDegrees );
+            rb.MoveRotation( moveToRotation );
+            rb.velocity *= velocityTaper;
         }
-        else 
+        else // COAST
         {
-            // Update newDirection based on the control angle.
-            if (++controlAngle >= 360.0f) { controlAngle = 0.0f; }
-            Quaternion newDirectionRotation = Quaternion.AngleAxis(controlAngle, Vector3.up);
+#if DEBUG_MODE
+            Debug.Log( "COAST" );
+#endif // DEBUG_MODE
+
+            controlAngle += Time.fixedDeltaTime * controlAngleSpeedDegrees;
+            if ( controlAngle >= 360.0f ) { controlAngle = 0.0f; }
+
+            Quaternion newDirectionRotation = Quaternion.AngleAxis( controlAngle, Vector3.up );
             controlVector = newDirectionRotation * transform.forward;
-            // Update speed based on the taper.
-            rb.velocity *= speedTaper;
-            Debug.Log("COAST \n");
+            
+            rb.velocity *= velocityTaper;
         }
 
-        resetControlAngle = false;
+        Vector3 maxPossibleVelocity = rb.velocity.normalized * maxSpeed;
+        if ( rb.velocity.magnitude > maxPossibleVelocity.magnitude )
+        {
+            rb.velocity = maxPossibleVelocity;
+        };
 
 #if DEBUG_MODE
-        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.green, -1, false);
-        Debug.DrawLine(transform.position, transform.position + controlVector, Color.red, -1, false);
-        Debug.Log("forward: " + transform.forward.ToString());
-        Debug.Log("controlVector: " + controlVector.ToString());
-        Debug.Log("controlAngle: " + controlAngle.ToString());
-        Debug.Log("speed: " + speed.ToString());
-        Debug.Log("buttonPressed: " + buttonPressed.ToString());
+        Debug.DrawLine( transform.position, transform.position + transform.forward, Color.green, -1, false );
+        Debug.DrawLine( transform.position, transform.position + controlVector, Color.red, -1, false );
+        Debug.DrawLine( transform.position, transform.position + rb.velocity, Color.cyan, -1, false );
+        Debug.Log( "forward: " + transform.forward.ToString() );
+        Debug.Log( "controlAngle: " + controlAngle.ToString() );
+        Debug.Log( "buttonPressed: " + buttonPressed.ToString() );
 #endif // DEBUG_MODE
     }
 
@@ -104,21 +136,21 @@ public class CapsuleController : MonoBehaviour
         Application.logMessageReceived -= HandleLog;
     }
 
-    void HandleLog(string logString, string stackTrace, LogType type)
+    void HandleLog( string logString, string stackTrace, LogType type )
     {
-        myLogQueue.Enqueue("[" + type + "] : " + logString);
-        if (type == LogType.Exception)
-            myLogQueue.Enqueue(stackTrace);
-        while (myLogQueue.Count > qsize)
+        myLogQueue.Enqueue( "[" + type + "] : " + logString );
+        if ( type == LogType.Exception )
+            myLogQueue.Enqueue( stackTrace );
+        while ( myLogQueue.Count > qsize )
             myLogQueue.Dequeue();
     }
 
     void OnGUI()
     {
         GUI.skin.label.fontSize = 21;
-        GUI.color = Color.red;
-        GUILayout.BeginArea(new Rect(Screen.width - 400, 0, 400, Screen.height));
-        GUILayout.Label("\n" + string.Join("\n", myLogQueue.ToArray()));
+        GUI.color = Color.white;
+        GUILayout.BeginArea( new Rect( Screen.width - 400, 0, 400, Screen.height ) );
+        GUILayout.Label( "\n" + string.Join( "\n", myLogQueue.ToArray() ) );
         GUILayout.EndArea();
     }
 #endif // DEBUG_MODE
