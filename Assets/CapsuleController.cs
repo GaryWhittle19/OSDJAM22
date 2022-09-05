@@ -13,16 +13,17 @@ public class CapsuleController : MonoBehaviour
     bool engineStart = false;
     float controlAngle = 0.0f;
     Vector3 controlVector;
-   
-    public ParticleSystem psThrust;
-    public float movementForce = 100.0f;
-    public float engineStartJerkFactor = 80.0f;
-    public float maxSpeed = 2.0f;
-    public float velocityTaper = 0.985f;
-    public float rotateSpeedDegrees = 135.0f;
-    public float controlAngleSpeedDegrees = 180.0f;
-    public float lateralDriftCorrectionFactor = 100.0f;
-    public float mainThrustDeadzone = 0.5f;
+
+    [Header( "Variables" )]
+    [SerializeField] ParticleSystem psThrust;
+    [SerializeField] float movementForce = 100.0f;
+    [SerializeField] float engineStartJerkFactor = 1.0f;
+    [SerializeField] float maxSpeed = 2.5f;
+    [SerializeField] [Range(0.95f, 1.0f)] float velocityTaper = 0.9885f;
+    [SerializeField] float rotateSpeedDegrees = 260.0f;
+    [SerializeField] float controlAngleSpeedDegrees = 120.0f;
+    [SerializeField] float lateralDriftCorrectionFactor = 100.0f;
+    [SerializeField] float mainThrustDeadzone = 0.5f;
 
 #if DEBUG_MODE
     uint qsize = 4;  // number of messages to keep
