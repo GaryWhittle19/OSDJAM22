@@ -24,7 +24,7 @@ public class CapsuleController : MonoBehaviour
     private Animator animator;
     private float spinOutTimer = 0.0f;
     private float collisionTimeout = 0.0f;
-
+    Vector3 startingPosition;
 
     // Private editor vars
     [Header( "Variables" )]
@@ -43,7 +43,10 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] private bool resetRotation = false;
     [SerializeField] private ShipState shipState;
     [SerializeField] private ShipState prevShipState = ShipState.COAST;
-
+    [SerializeField] private Material renderTex;
+    [SerializeField] private float boundaryDistance;
+    [SerializeField] [Range(0.0f, 1.0f)]private float staticStart;
+    [SerializeField] private GameObject connectionText;
 
 #if DEBUG_MODE
     uint qsize = 4;  // number of messages to keep
@@ -61,7 +64,10 @@ public class CapsuleController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         controlVector = transform.forward;
         collisionKnockback = 10.0f;
+        startingPosition = gameObject.transform.position;
 
+        renderTex.SetFloat("_NoiseAmount", 0.05f);
+        connectionText.SetActive(false);
         ChangeState(ShipState.COAST);
     }
 
@@ -69,6 +75,21 @@ public class CapsuleController : MonoBehaviour
     void Update()
     {
         buttonPressed = Input.GetKey("space");
+
+        // Check for player exceeding boundary distance
+        float distFromStart = Vector3.Distance(gameObject.transform.position, startingPosition);
+        float staticStartDist = boundaryDistance * staticStart;
+        if (distFromStart - staticStartDist > 0.0f)
+        {
+            connectionText.SetActive(true);
+            float boundaryProgression = Mathf.Min((distFromStart - staticStartDist) / (boundaryDistance - staticStartDist), 1.0f);
+            renderTex.SetFloat("_NoiseAmount", boundaryProgression);
+        }
+        else
+        {
+            connectionText.SetActive(false);
+        }
+
     }
 
     // Framerate independent update
