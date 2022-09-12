@@ -75,7 +75,6 @@ public class AteroidController : MonoBehaviour
             {
                 asteroidInst.SetActive(true);
                 rotationAxis *= Random.Range(0.01f, 0.2f) * astScale;
-                Debug.Log("Torque: " + rotationAxis);
                 rb.AddRelativeTorque(rotationAxis, ForceMode.Impulse);
             }
         }
