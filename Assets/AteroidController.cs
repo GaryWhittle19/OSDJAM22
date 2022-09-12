@@ -9,7 +9,7 @@ public class AteroidController : MonoBehaviour
     [SerializeField] private int numAsteroids;
     [SerializeField] private float spawnRange;
     [SerializeField] private Vector2 scaleRange;
-    [SerializeField] private float rotationSpeed = 3.5f;
+    [SerializeField] private Vector2 rotationSpeed;
 
     private List<GameObject> asteroidCollection = new List<GameObject>();
 
@@ -74,7 +74,7 @@ public class AteroidController : MonoBehaviour
             if (Physics.CheckSphere(spawnPosition, instRad) == false)
             {
                 asteroidInst.SetActive(true);
-                rotationAxis *= Random.Range(0.01f, 0.2f) * astScale;
+                rotationAxis *= Random.Range(rotationSpeed.x, rotationSpeed.y) * astScale;
                 rb.AddRelativeTorque(rotationAxis, ForceMode.Impulse);
             }
         }
