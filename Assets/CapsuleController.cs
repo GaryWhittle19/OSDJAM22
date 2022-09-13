@@ -47,6 +47,7 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] private float boundaryDistance;
     [SerializeField] [Range(0.0f, 1.0f)]private float staticStart;
     [SerializeField] private GameObject connectionText;
+    [SerializeField] private GameObject directionalMesh;
 
 #if DEBUG_MODE
     uint qsize = 4;  // number of messages to keep
@@ -104,6 +105,8 @@ public class CapsuleController : MonoBehaviour
         {
             rb.velocity = maxPossibleVelocity;
         };
+
+        directionalMesh.transform.position = transform.position + controlVector;
 
 #if DEBUG_MODE
         Debug.DrawLine(transform.position, transform.position + transform.forward, Color.green, -1, false);
