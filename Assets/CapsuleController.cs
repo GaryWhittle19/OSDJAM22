@@ -3,6 +3,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using TMPro;
+using System.IO;
 
 public class CapsuleController : MonoBehaviour
 {
@@ -12,6 +15,11 @@ public class CapsuleController : MonoBehaviour
         RCS,
         COAST,
         SPIN_OUT
+    }
+    struct DialogueInfo
+    {
+        public string characterName;
+        public string[] dialogueLines;
     }
 
     // Private vars
@@ -24,6 +32,10 @@ public class CapsuleController : MonoBehaviour
     private Animator animator;
     private float spinOutTimer = 0.0f;
     private float collisionTimeout = 0.0f;
+    private string stringDisplay = "";
+    private string stringQueue = "";
+    private float textResetTime = 0.0f;
+    private int dialogueCounter = 0;
     Vector3 startingPosition;
 
     // Private editor vars
@@ -48,6 +60,9 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] [Range(0.0f, 1.0f)]private float staticStart;
     [SerializeField] private GameObject connectionText;
     [SerializeField] private GameObject directionalMesh;
+    [SerializeField] private TextMeshProUGUI DialogueBox;
+    [SerializeField] private float textResetSpeed = 0.2f;
+    [SerializeField] private List<DialogueInfo> dialogueInfo = new List<DialogueInfo>();
 
 #if DEBUG_MODE
     uint qsize = 4;  // number of messages to keep
@@ -70,6 +85,16 @@ public class CapsuleController : MonoBehaviour
         renderTex.SetFloat("_NoiseAmount", 0.05f);
         connectionText.SetActive(false);
         ChangeState(ShipState.COAST);
+
+        DirectoryInfo dir = new DirectoryInfo("Assets/DialogueJsons/AlienDialogue");
+        FileInfo[] info = dir.GetFiles("*.json");
+        Debug.Log("Info len: " + info.Length);
+        foreach (var diagInfo in info)
+        {
+            TextAsset diagAsset = (TextAsset)AssetDatabase.LoadAssetAtPath("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name, typeof(TextAsset));
+            Debug.Log("Assets/DialogueJsons/AlienDialogue" + diagInfo.Name);
+            dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
+        }
     }
 
     // Update is called once per frame
@@ -89,6 +114,19 @@ public class CapsuleController : MonoBehaviour
         else
         {
             connectionText.SetActive(false);
+        }
+
+        if (stringDisplay != stringQueue)
+        {
+            if (textResetTime <= 0.0f && stringQueue.Length > 0)
+            {
+                textResetTime = textResetSpeed;
+                char letter = stringQueue[0];
+                stringDisplay += letter;
+                stringQueue = stringQueue.Substring(1);
+                DialogueBox.SetText(stringDisplay);
+            }
+            textResetTime -= Time.deltaTime;
         }
 
     }
@@ -143,6 +181,23 @@ public class CapsuleController : MonoBehaviour
 
             ChangeState(ShipState.SPIN_OUT);
             Debug.DrawLine(transform.position, transform.position + (collisionDirection * 4), Color.white, -1, false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Alien"))
+        {
+            var dialogueText = dialogueInfo[dialogueCounter].dialogueLines;
+            dialogueCounter++;
+            string fullText = "";
+            foreach (var line in dialogueText)
+            {
+                fullText += (line + "\n").ToString();
+            }
+
+            stringQueue = fullText;
+            stringDisplay = "";
         }
     }
 
@@ -259,6 +314,11 @@ public class CapsuleController : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    private static DialogueInfo CreateFromJson(string jsonString)
+    {
+        return JsonUtility.FromJson<DialogueInfo>(jsonString);
     }
 
 #if DEBUG_MODE
