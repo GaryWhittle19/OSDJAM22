@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class CapsuleController : MonoBehaviour
 {
-    enum ShipState
+    public enum ShipState
     {
         THRUST,
         RCS,
         COAST,
-        SPIN_OUT
+        SPIN_OUT,
+        ENCOUNTER
     }
 
     // Private vars
@@ -112,9 +113,6 @@ public class CapsuleController : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward, Color.green, -1, false);
         Debug.DrawLine(transform.position, transform.position + controlVector, Color.red, -1, false);
         Debug.DrawLine(transform.position, transform.position + rb.velocity, Color.cyan, -1, false);
-        //Debug.Log( "forward: " + transform.forward.ToString() );
-        //Debug.Log( "controlAngle: " + controlAngle.ToString() );
-        //Debug.Log( "buttonPressed: " + buttonPressed.ToString() );
 #endif // DEBUG_MODE
     }
 
@@ -126,27 +124,32 @@ public class CapsuleController : MonoBehaviour
             Vector3 collisionDirection = Vector3.Normalize(other.transform.position - this.gameObject.transform.position);
             collisionDirection.y = 0.0f;
             collisionTimeout = collisionTimeoutValue;
+#if DEBUG_MODE
             Debug.Log("Performing collision:");
             Debug.Log("Direction: " + collisionDirection.ToString());
             Debug.Log("Knockback: " + collisionKnockback.ToString());
+#endif // DEBUG_MODE
 
             Vector3 rbVel = rb.velocity;
             rbVel /= 10.0f;
             rb.velocity = -rbVel;
-
+#if DEBUG_MODE
             foreach (ContactPoint contact in collision.contacts)
             {
                 print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
                 // Visualize the contact point
                 Debug.DrawRay(contact.point, contact.normal, Color.white);
             }
-
+#endif // DEBUG_MODE
             ChangeState(ShipState.SPIN_OUT);
+
+#if DEBUG_MODE
             Debug.DrawLine(transform.position, transform.position + (collisionDirection * 4), Color.white, -1, false);
+#endif // DEBUG_MODE
         }
     }
 
-    private void ChangeState(ShipState targetState)
+    public void ChangeState(ShipState targetState)
     {
         prevShipState = shipState;
 
@@ -163,6 +166,9 @@ public class CapsuleController : MonoBehaviour
             case ShipState.SPIN_OUT:
                 animator.Play("Idle");
                 resetRotation = true;
+                break;
+            case ShipState.ENCOUNTER:
+
                 break;
             default:
                 break;
@@ -193,69 +199,72 @@ public class CapsuleController : MonoBehaviour
 #endif
     }
 
-    private void UpdateState(ShipState applyState)
+    private void UpdateState( ShipState applyState )
     {
-        switch (applyState)
+        switch( applyState )
         {
             case ShipState.COAST:
                 controlAngle += Time.fixedDeltaTime * controlAngleSpeedDegrees;
-                if (controlAngle >= 360.0f) { controlAngle = 0.0f; }
+                if( controlAngle >= 360.0f ) { controlAngle = 0.0f; }
 
-                Quaternion newDirectionRotation = Quaternion.AngleAxis(controlAngle, Vector3.up);
+                Quaternion newDirectionRotation = Quaternion.AngleAxis( controlAngle, Vector3.up );
                 controlVector = newDirectionRotation * transform.forward;
 
                 rb.velocity *= velocityTaper;
 
-                if (buttonPressed)
+                if( buttonPressed )
                 {
-                    ChangeState(ShipState.RCS);
+                    ChangeState( ShipState.RCS );
                 }
                 break;
 
             case ShipState.RCS:
-                if (buttonPressed)
+                if( buttonPressed )
                 {
-                    if (resetRotation)
+                    if( resetRotation )
                     {
                         rb.angularVelocity = Vector3.zero;
                     }
 
-                    Quaternion targetRotation = Quaternion.LookRotation(controlVector);
-                    Quaternion moveToRotation = Quaternion.RotateTowards(rb.rotation, targetRotation, Time.fixedDeltaTime * rotateSpeedDegrees);
-                    rb.MoveRotation(moveToRotation);
+                    Quaternion targetRotation = Quaternion.LookRotation( controlVector );
+                    Quaternion moveToRotation = Quaternion.RotateTowards( rb.rotation, targetRotation, Time.fixedDeltaTime * rotateSpeedDegrees );
+                    rb.MoveRotation( moveToRotation );
                     rb.velocity *= velocityTaper;
 
-                    if (Vector3.Angle(transform.forward, controlVector) < mainThrustDeadzone)
+                    if( Vector3.Angle( transform.forward, controlVector ) < mainThrustDeadzone )
                     {
-                        ChangeState(ShipState.THRUST);
+                        ChangeState( ShipState.THRUST );
                     }
                 }
                 else
                 {
-                    ChangeState(ShipState.COAST);
+                    ChangeState( ShipState.COAST );
                 }
                 break;
 
             case ShipState.THRUST:
-                if (buttonPressed)
+                if( buttonPressed )
                 {
-                    rb.AddForce(transform.forward * movementForce * Time.fixedDeltaTime);
+                    rb.AddForce( transform.forward * movementForce * Time.fixedDeltaTime );
 
                     float lateralDriftCorrectionForce = -rb.velocity.x * transform.forward.z + rb.velocity.z * transform.forward.x;
-                    rb.AddForce(lateralDriftCorrectionForce * lateralDriftCorrectionFactor * transform.right * Time.fixedDeltaTime);
+                    rb.AddForce( lateralDriftCorrectionForce * lateralDriftCorrectionFactor * transform.right * Time.fixedDeltaTime );
                 }
                 else
                 {
-                    ChangeState(ShipState.COAST);
+                    ChangeState( ShipState.COAST );
                 }
                 break;
 
             case ShipState.SPIN_OUT:
                 spinOutTimer -= Time.deltaTime;
-                if (spinOutTimer < 0.0f)
-                    ChangeState(ShipState.COAST);
+                if( spinOutTimer < 0.0f )
+                    ChangeState( ShipState.COAST );
                 break;
 
+            case ShipState.ENCOUNTER:
+                rb.velocity *= velocityTaper;
+                break;
             default:
                 break;
         }
