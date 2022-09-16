@@ -9,12 +9,13 @@ using System.IO;
 
 public class CapsuleController : MonoBehaviour
 {
-    enum ShipState
+    public enum ShipState
     {
         THRUST,
         RCS,
         COAST,
-        SPIN_OUT
+        SPIN_OUT,
+        ENCOUNTER
     }
     struct DialogueInfo
     {
@@ -198,6 +199,12 @@ public class CapsuleController : MonoBehaviour
 
             stringQueue = fullText;
             stringDisplay = "";
+
+            ChangeState( CapsuleController.ShipState.ENCOUNTER );
+
+            // TODO
+            // Get alien gameobject
+            // Get puzzle component 
         }
     }
 
@@ -309,6 +316,13 @@ public class CapsuleController : MonoBehaviour
                 spinOutTimer -= Time.deltaTime;
                 if (spinOutTimer < 0.0f)
                     ChangeState(ShipState.COAST);
+                break;
+
+            case ShipState.ENCOUNTER:
+                rb.velocity *= velocityTaper;
+                // TODO
+                // Has puzzle been completed?
+                // If so, change state back to coast
                 break;
 
             default:
