@@ -3,16 +3,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
+using TMPro;
+using System.IO;
 
 public class CapsuleController : MonoBehaviour
 {
-    public enum ShipState
+    enum ShipState
     {
         THRUST,
         RCS,
         COAST,
-        SPIN_OUT,
-        ENCOUNTER
+        SPIN_OUT
+    }
+    struct DialogueInfo
+    {
+        public string characterName;
+        public string[] dialogueLines;
     }
 
     // Private vars
@@ -25,6 +32,10 @@ public class CapsuleController : MonoBehaviour
     private Animator animator;
     private float spinOutTimer = 0.0f;
     private float collisionTimeout = 0.0f;
+    private string stringDisplay = "";
+    private string stringQueue = "";
+    private float textResetTime = 0.0f;
+    private int dialogueCounter = 0;
     Vector3 startingPosition;
 
     // Private editor vars
@@ -49,6 +60,9 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] [Range(0.0f, 1.0f)]private float staticStart;
     [SerializeField] private GameObject connectionText;
     [SerializeField] private GameObject directionalMesh;
+    [SerializeField] private TextMeshProUGUI DialogueBox;
+    [SerializeField] private float textResetSpeed = 0.2f;
+    [SerializeField] private List<DialogueInfo> dialogueInfo = new List<DialogueInfo>();
 
 #if DEBUG_MODE
     uint qsize = 4;  // number of messages to keep
@@ -71,6 +85,16 @@ public class CapsuleController : MonoBehaviour
         renderTex.SetFloat("_NoiseAmount", 0.05f);
         connectionText.SetActive(false);
         ChangeState(ShipState.COAST);
+
+        DirectoryInfo dir = new DirectoryInfo("Assets/DialogueJsons/AlienDialogue");
+        FileInfo[] info = dir.GetFiles("*.json");
+        Debug.Log("Info len: " + info.Length);
+        foreach (var diagInfo in info)
+        {
+            TextAsset diagAsset = (TextAsset)AssetDatabase.LoadAssetAtPath("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name, typeof(TextAsset));
+            Debug.Log("Assets/DialogueJsons/AlienDialogue" + diagInfo.Name);
+            dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
+        }
     }
 
     // Update is called once per frame
@@ -90,6 +114,19 @@ public class CapsuleController : MonoBehaviour
         else
         {
             connectionText.SetActive(false);
+        }
+
+        if (stringDisplay != stringQueue)
+        {
+            if (textResetTime <= 0.0f && stringQueue.Length > 0)
+            {
+                textResetTime = textResetSpeed;
+                char letter = stringQueue[0];
+                stringDisplay += letter;
+                stringQueue = stringQueue.Substring(1);
+                DialogueBox.SetText(stringDisplay);
+            }
+            textResetTime -= Time.deltaTime;
         }
 
     }
@@ -113,6 +150,9 @@ public class CapsuleController : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + transform.forward, Color.green, -1, false);
         Debug.DrawLine(transform.position, transform.position + controlVector, Color.red, -1, false);
         Debug.DrawLine(transform.position, transform.position + rb.velocity, Color.cyan, -1, false);
+        //Debug.Log( "forward: " + transform.forward.ToString() );
+        //Debug.Log( "controlAngle: " + controlAngle.ToString() );
+        //Debug.Log( "buttonPressed: " + buttonPressed.ToString() );
 #endif // DEBUG_MODE
     }
 
@@ -124,32 +164,44 @@ public class CapsuleController : MonoBehaviour
             Vector3 collisionDirection = Vector3.Normalize(other.transform.position - this.gameObject.transform.position);
             collisionDirection.y = 0.0f;
             collisionTimeout = collisionTimeoutValue;
-#if DEBUG_MODE
             Debug.Log("Performing collision:");
             Debug.Log("Direction: " + collisionDirection.ToString());
             Debug.Log("Knockback: " + collisionKnockback.ToString());
-#endif // DEBUG_MODE
 
             Vector3 rbVel = rb.velocity;
             rbVel /= 10.0f;
             rb.velocity = -rbVel;
-#if DEBUG_MODE
+
             foreach (ContactPoint contact in collision.contacts)
             {
                 print(contact.thisCollider.name + " hit " + contact.otherCollider.name);
                 // Visualize the contact point
                 Debug.DrawRay(contact.point, contact.normal, Color.white);
             }
-#endif // DEBUG_MODE
-            ChangeState(ShipState.SPIN_OUT);
 
-#if DEBUG_MODE
+            ChangeState(ShipState.SPIN_OUT);
             Debug.DrawLine(transform.position, transform.position + (collisionDirection * 4), Color.white, -1, false);
-#endif // DEBUG_MODE
         }
     }
 
-    public void ChangeState(ShipState targetState)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Alien"))
+        {
+            var dialogueText = dialogueInfo[dialogueCounter].dialogueLines;
+            dialogueCounter++;
+            string fullText = "";
+            foreach (var line in dialogueText)
+            {
+                fullText += (line + "\n").ToString();
+            }
+
+            stringQueue = fullText;
+            stringDisplay = "";
+        }
+    }
+
+    private void ChangeState(ShipState targetState)
     {
         prevShipState = shipState;
 
@@ -166,9 +218,6 @@ public class CapsuleController : MonoBehaviour
             case ShipState.SPIN_OUT:
                 animator.Play("Idle");
                 resetRotation = true;
-                break;
-            case ShipState.ENCOUNTER:
-
                 break;
             default:
                 break;
@@ -199,75 +248,77 @@ public class CapsuleController : MonoBehaviour
 #endif
     }
 
-    private void UpdateState( ShipState applyState )
+    private void UpdateState(ShipState applyState)
     {
-        switch( applyState )
+        switch (applyState)
         {
             case ShipState.COAST:
                 controlAngle += Time.fixedDeltaTime * controlAngleSpeedDegrees;
-                if( controlAngle >= 360.0f ) { controlAngle = 0.0f; }
+                if (controlAngle >= 360.0f) { controlAngle = 0.0f; }
 
-                Quaternion newDirectionRotation = Quaternion.AngleAxis( controlAngle, Vector3.up );
+                Quaternion newDirectionRotation = Quaternion.AngleAxis(controlAngle, Vector3.up);
                 controlVector = newDirectionRotation * transform.forward;
 
                 rb.velocity *= velocityTaper;
 
-                if( buttonPressed )
+                if (buttonPressed)
                 {
-                    ChangeState( ShipState.RCS );
+                    ChangeState(ShipState.RCS);
                 }
                 break;
 
             case ShipState.RCS:
-                if( buttonPressed )
+                if (buttonPressed)
                 {
-                    if( resetRotation )
+                    if (resetRotation)
                     {
                         rb.angularVelocity = Vector3.zero;
                     }
 
-                    Quaternion targetRotation = Quaternion.LookRotation( controlVector );
-                    Quaternion moveToRotation = Quaternion.RotateTowards( rb.rotation, targetRotation, Time.fixedDeltaTime * rotateSpeedDegrees );
-                    rb.MoveRotation( moveToRotation );
+                    Quaternion targetRotation = Quaternion.LookRotation(controlVector);
+                    Quaternion moveToRotation = Quaternion.RotateTowards(rb.rotation, targetRotation, Time.fixedDeltaTime * rotateSpeedDegrees);
+                    rb.MoveRotation(moveToRotation);
                     rb.velocity *= velocityTaper;
 
-                    if( Vector3.Angle( transform.forward, controlVector ) < mainThrustDeadzone )
+                    if (Vector3.Angle(transform.forward, controlVector) < mainThrustDeadzone)
                     {
-                        ChangeState( ShipState.THRUST );
+                        ChangeState(ShipState.THRUST);
                     }
                 }
                 else
                 {
-                    ChangeState( ShipState.COAST );
+                    ChangeState(ShipState.COAST);
                 }
                 break;
 
             case ShipState.THRUST:
-                if( buttonPressed )
+                if (buttonPressed)
                 {
-                    rb.AddForce( transform.forward * movementForce * Time.fixedDeltaTime );
+                    rb.AddForce(transform.forward * movementForce * Time.fixedDeltaTime);
 
                     float lateralDriftCorrectionForce = -rb.velocity.x * transform.forward.z + rb.velocity.z * transform.forward.x;
-                    rb.AddForce( lateralDriftCorrectionForce * lateralDriftCorrectionFactor * transform.right * Time.fixedDeltaTime );
+                    rb.AddForce(lateralDriftCorrectionForce * lateralDriftCorrectionFactor * transform.right * Time.fixedDeltaTime);
                 }
                 else
                 {
-                    ChangeState( ShipState.COAST );
+                    ChangeState(ShipState.COAST);
                 }
                 break;
 
             case ShipState.SPIN_OUT:
                 spinOutTimer -= Time.deltaTime;
-                if( spinOutTimer < 0.0f )
-                    ChangeState( ShipState.COAST );
+                if (spinOutTimer < 0.0f)
+                    ChangeState(ShipState.COAST);
                 break;
 
-            case ShipState.ENCOUNTER:
-                rb.velocity *= velocityTaper;
-                break;
             default:
                 break;
         }
+    }
+
+    private static DialogueInfo CreateFromJson(string jsonString)
+    {
+        return JsonUtility.FromJson<DialogueInfo>(jsonString);
     }
 
 #if DEBUG_MODE
