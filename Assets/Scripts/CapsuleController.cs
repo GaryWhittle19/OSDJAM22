@@ -1,5 +1,3 @@
-#define DEBUG_MODE
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,60 +21,58 @@ public class CapsuleController : MonoBehaviour
         public string[] dialogueLines;
     }
 
-    // Private vars
+    // Mesh
     private Rigidbody rb;
-
-    [SerializeField]
+    // Movement
     private bool buttonPressed = false;
     private float controlAngle = 0.0f;
     private Vector3 controlVector;
+    // Collision
     private Animator animator;
     private float spinOutTimer = 0.0f;
     private float collisionTimeout = 0.0f;
+    // Boundary
     private string stringDisplay = "";
     private string stringQueue = "";
     private float textResetTime = 0.0f;
-    private int dialogueCounter = 0;
     Vector3 startingPosition;
+    // Dialogue
+    private int dialogueCounter = 0;
 
-    // Private editor vars
-    [Header( "Variables" )]
+    [Header( "RK_Particles" )]
     [SerializeField] ParticleSystem psThrust;
+    [Header( "RK_State" )]
+    [SerializeField] private ShipState shipState;
+    [SerializeField] private ShipState prevShipState = ShipState.COAST;
+    [Header( "RK_Movement" )]
     [SerializeField] float movementForce = 100.0f;
     [SerializeField] float engineStartJerkFactor = 1.0f;
-    [SerializeField] float maxSpeed = 2.5f;
-    [SerializeField] [Range(0.95f, 1.0f)] float velocityTaper = 0.9885f;
+    [SerializeField] float maxSpeed = 2.0f;
+    [SerializeField] [Range(0.95f, 1.0f)] float velocityTaper = 0.985f;
     [SerializeField] float rotateSpeedDegrees = 260.0f;
     [SerializeField] float controlAngleSpeedDegrees = 120.0f;
     [SerializeField] float lateralDriftCorrectionFactor = 100.0f;
     [SerializeField] float mainThrustDeadzone = 0.5f;
-    [SerializeField] private float collisionKnockback;
+    [SerializeField] private GameObject directionalMesh;
+    [Header( "RK_Collision" )]
+    [SerializeField] private float collisionKnockback = 10.0f;
     [SerializeField] private float spinOutTimerValue = 3.0f;
     [SerializeField] private float collisionTimeoutValue = 3.0f;
     [SerializeField] private bool resetRotation = false;
-    [SerializeField] private ShipState shipState;
-    [SerializeField] private ShipState prevShipState = ShipState.COAST;
+    [Header( "RK_Rendering" )]
     [SerializeField] private Material renderTex;
-    [SerializeField] private float boundaryDistance;
-    [SerializeField] [Range(0.0f, 1.0f)]private float staticStart;
+    [Header( "RK_Boundary" )]
+    [SerializeField] [Tooltip( "Boundary distance - how far from centre can player go?" )] private float boundaryDistance;
+    [SerializeField] [Tooltip( "Progress towards boundary at which static will appear (1.0 - at boundary, 0.0 - in centre)" )] [Range(0.0f, 1.0f)]private float staticStart;
     [SerializeField] private GameObject connectionText;
-    [SerializeField] private GameObject directionalMesh;
     [SerializeField] private TextMeshProUGUI DialogueBox;
     [SerializeField] private float textResetSpeed = 0.2f;
+    [Header( "RK_Dialogue" )]
     [SerializeField] private List<DialogueInfo> dialogueInfo = new List<DialogueInfo>();
-
-#if DEBUG_MODE
-    uint qsize = 4;  // number of messages to keep
-    Queue myLogQueue = new Queue();
-#endif // DEBUG_MODE
 
     // Start is called before the first frame update
     void Start()
     {
-#if DEBUG_MODE
-        Debug.Log( "Started up logging." );
-#endif // DEBUG_MODE
-
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         controlVector = transform.forward;
@@ -101,35 +97,52 @@ public class CapsuleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        buttonPressed = Input.GetKey("space");
+        buttonPressed = Input.GetKey( "space" );
 
-        // Check for player exceeding boundary distance
-        float distFromStart = Vector3.Distance(gameObject.transform.position, startingPosition);
-        float staticStartDist = boundaryDistance * staticStart;
-        if (distFromStart - staticStartDist > 0.0f)
-        {
-            connectionText.SetActive(true);
-            float boundaryProgression = Mathf.Min((distFromStart - staticStartDist) / (boundaryDistance - staticStartDist), 1.0f);
-            renderTex.SetFloat("_NoiseAmount", boundaryProgression);
-        }
-        else
-        {
-            connectionText.SetActive(false);
-        }
+        PlayerBoundaryCheck();
 
-        if (stringDisplay != stringQueue)
+        if ( stringDisplay != stringQueue )
         {
-            if (textResetTime <= 0.0f && stringQueue.Length > 0)
+            if ( textResetTime <= 0.0f && stringQueue.Length > 0 )
             {
                 textResetTime = textResetSpeed;
                 char letter = stringQueue[0];
                 stringDisplay += letter;
-                stringQueue = stringQueue.Substring(1);
-                DialogueBox.SetText(stringDisplay);
+                stringQueue = stringQueue.Substring( 1 );
+                DialogueBox.SetText( stringDisplay );
             }
             textResetTime -= Time.deltaTime;
         }
 
+    }
+
+    private void PlayerBoundaryCheck()
+    {
+        // Get distance from start position
+        float distFromStart = Vector3.Distance( gameObject.transform.position, startingPosition );
+        // Get distance where static should begin
+        float staticStartDist = boundaryDistance * staticStart;
+        // If player has passed that point
+        if ( distFromStart - staticStartDist > 0.0f )
+        {
+            // Losing connection begin
+            connectionText.SetActive( true );
+            // Get amount of progression between the point of static starting and the boundary
+            float boundaryProgression = Mathf.Min( (distFromStart - staticStartDist) / (boundaryDistance - staticStartDist), 1.0f );
+            // Set the static (or noise) amount
+            renderTex.SetFloat( "_NoiseAmount", boundaryProgression );
+            // Return player to start position if they go off-screen
+            if ( distFromStart > boundaryDistance )
+            {
+                renderTex.SetFloat( "_NoiseAmount", 0.0f );
+                gameObject.transform.position.Set( startingPosition.x, startingPosition.y, startingPosition.z );
+                rb.MovePosition( startingPosition );
+            }
+        }
+        else
+        {
+            connectionText.SetActive( false );
+        }
     }
 
     // Framerate independent update
@@ -146,15 +159,6 @@ public class CapsuleController : MonoBehaviour
         };
 
         directionalMesh.transform.position = transform.position + controlVector;
-
-#if DEBUG_MODE
-        Debug.DrawLine(transform.position, transform.position + transform.forward, Color.green, -1, false);
-        Debug.DrawLine(transform.position, transform.position + controlVector, Color.red, -1, false);
-        Debug.DrawLine(transform.position, transform.position + rb.velocity, Color.cyan, -1, false);
-        //Debug.Log( "forward: " + transform.forward.ToString() );
-        //Debug.Log( "controlAngle: " + controlAngle.ToString() );
-        //Debug.Log( "buttonPressed: " + buttonPressed.ToString() );
-#endif // DEBUG_MODE
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -250,9 +254,6 @@ public class CapsuleController : MonoBehaviour
         }
 
         shipState = targetState;
-#if DEBUG_MODE
-        Debug.Log("Ship state: " + shipState.ToString());
-#endif
     }
 
     private void UpdateState(ShipState applyState)
@@ -334,34 +335,4 @@ public class CapsuleController : MonoBehaviour
     {
         return JsonUtility.FromJson<DialogueInfo>(jsonString);
     }
-
-#if DEBUG_MODE
-    void OnEnable()
-    {
-        Application.logMessageReceived += HandleLog;
-    }
-
-    void OnDisable()
-    {
-        Application.logMessageReceived -= HandleLog;
-    }
-
-    void HandleLog( string logString, string stackTrace, LogType type )
-    {
-        myLogQueue.Enqueue( "[" + type + "] : " + logString );
-        if ( type == LogType.Exception )
-            myLogQueue.Enqueue( stackTrace );
-        while ( myLogQueue.Count > qsize )
-            myLogQueue.Dequeue();
-    }
-
-    void OnGUI()
-    {
-        GUI.skin.label.fontSize = 21;
-        GUI.color = Color.white;
-        GUILayout.BeginArea( new Rect( Screen.width - 400, 0, 400, Screen.height ) );
-        GUILayout.Label( "\n" + string.Join( "\n", myLogQueue.ToArray() ) );
-        GUILayout.EndArea();
-    }
-#endif // DEBUG_MODE
 }

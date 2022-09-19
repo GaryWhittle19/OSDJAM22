@@ -69,7 +69,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _MySliderValue: 4.09
-    - _NoiseAmount: 0.0022550598
+    - _NoiseAmount: 0.05
     - _NoiseSize: 70.6
     - _OcclusionStrength: 1
     - _Parallax: 0.02
