@@ -1,9 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
-using TMPro;
-using System.IO;
 
 public class CapsuleController : MonoBehaviour
 {
@@ -14,11 +11,6 @@ public class CapsuleController : MonoBehaviour
         COAST,
         SPIN_OUT,
         ENCOUNTER
-    }
-    struct DialogueInfo
-    {
-        public string characterName;
-        public string[] dialogueLines;
     }
 
     // Mesh
@@ -32,12 +24,7 @@ public class CapsuleController : MonoBehaviour
     private float spinOutTimer = 0.0f;
     private float collisionTimeout = 0.0f;
     // Boundary
-    private string stringDisplay = "";
-    private string stringQueue = "";
-    private float textResetTime = 0.0f;
     Vector3 startingPosition;
-    // Dialogue
-    private int dialogueCounter = 0;
 
     [Header( "RK_Particles" )]
     [SerializeField] ParticleSystem psThrust;
@@ -65,10 +52,6 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] [Tooltip( "Boundary distance - how far from centre can player go?" )] private float boundaryDistance;
     [SerializeField] [Tooltip( "Progress towards boundary at which static will appear (1.0 - at boundary, 0.0 - in centre)" )] [Range(0.0f, 1.0f)]private float staticStart;
     [SerializeField] private GameObject connectionText;
-    [SerializeField] private TextMeshProUGUI DialogueBox;
-    [SerializeField] private float textResetSpeed = 0.2f;
-    [Header( "RK_Dialogue" )]
-    [SerializeField] private List<DialogueInfo> dialogueInfo = new List<DialogueInfo>();
 
     // Start is called before the first frame update
     void Start()
@@ -82,16 +65,6 @@ public class CapsuleController : MonoBehaviour
         renderTex.SetFloat("_NoiseAmount", 0.05f);
         connectionText.SetActive(false);
         ChangeState(ShipState.COAST);
-
-        DirectoryInfo dir = new DirectoryInfo("Assets/DialogueJsons/AlienDialogue");
-        FileInfo[] info = dir.GetFiles("*.json");
-        Debug.Log("Info len: " + info.Length);
-        foreach (var diagInfo in info)
-        {
-            TextAsset diagAsset = (TextAsset)AssetDatabase.LoadAssetAtPath("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name, typeof(TextAsset));
-            Debug.Log("Assets/DialogueJsons/AlienDialogue" + diagInfo.Name);
-            dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
-        }
     }
 
     // Update is called once per frame
@@ -100,20 +73,6 @@ public class CapsuleController : MonoBehaviour
         buttonPressed = Input.GetKey( "space" );
 
         PlayerBoundaryCheck();
-
-        if ( stringDisplay != stringQueue )
-        {
-            if ( textResetTime <= 0.0f && stringQueue.Length > 0 )
-            {
-                textResetTime = textResetSpeed;
-                char letter = stringQueue[0];
-                stringDisplay += letter;
-                stringQueue = stringQueue.Substring( 1 );
-                DialogueBox.SetText( stringDisplay );
-            }
-            textResetTime -= Time.deltaTime;
-        }
-
     }
 
     private void PlayerBoundaryCheck()
@@ -193,23 +152,17 @@ public class CapsuleController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Alien"))
         {
-            var dialogueText = dialogueInfo[dialogueCounter].dialogueLines;
-            dialogueCounter++;
-            string fullText = "";
-            foreach (var line in dialogueText)
+            var alienController = other.gameObject.GetComponent<AlienController>();
+            if (alienController.WakeAlien(gameObject))
             {
-                fullText += (line + "\n").ToString();
+                ChangeState(CapsuleController.ShipState.ENCOUNTER);
             }
-
-            stringQueue = fullText;
-            stringDisplay = "";
-
-            ChangeState( CapsuleController.ShipState.ENCOUNTER );
-
-            // TODO
-            // Get alien gameobject
-            // Get puzzle component 
         }
+    }
+
+    public void SignalPuzzleComplete()
+    {
+        ChangeState(ShipState.COAST);
     }
 
     private void ChangeState(ShipState targetState)
@@ -329,10 +282,5 @@ public class CapsuleController : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    private static DialogueInfo CreateFromJson(string jsonString)
-    {
-        return JsonUtility.FromJson<DialogueInfo>(jsonString);
     }
 }
