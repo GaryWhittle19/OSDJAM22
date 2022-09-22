@@ -16,6 +16,8 @@ public class BackgroundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if ( !player ) { return; };
+
         Rigidbody rb = player.GetComponent<Rigidbody>();
         Vector2 playerVelocity = new Vector2(rb.velocity.x, rb.velocity.z);
 
