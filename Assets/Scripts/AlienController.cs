@@ -14,9 +14,9 @@ public class AlienController : MonoBehaviour
     }
 
 
-    [SerializeField] private GameObject puzzle;
     [SerializeField] private float dialogueTimeOutValue = 4.0f;
-    
+
+    private GameObject puzzle;
     private DialogueController dialogueController;
     private int dialogueCounter = 0;
     AlienState alienState = AlienState.IDLE;
@@ -28,6 +28,8 @@ public class AlienController : MonoBehaviour
     void Start()
     {
         dialogueController = FindObjectOfType<DialogueController>();
+        puzzle = FindObjectOfType<RingsPuzzle>().gameObject;
+        puzzle.GetComponent<RingsPuzzle>().ResetVars(this.transform.gameObject);
     }
 
     // Update is called once per frame
@@ -46,12 +48,6 @@ public class AlienController : MonoBehaviour
                 }
                 break;
             case AlienState.PUZZLE: // Wait for puzzle complete
-
-                if (dialogueTimeOut <= 0.0f)
-                {
-                    ChangeState(AlienState.COMPLETE);
-                }
-
                 break;
             case AlienState.COMPLETE:
                 break;
@@ -63,20 +59,32 @@ public class AlienController : MonoBehaviour
     private void ChangeState(AlienState targetState)
     {
         Debug.Log("Changing state to: " + targetState);
+
+        CapsuleController capsuleController = null;
+        if (playerObject)
+        {
+            capsuleController = playerObject.GetComponent<CapsuleController>();
+        }
+
         switch (targetState)
         {
             case AlienState.IDLE:
                 break;
             case AlienState.APPROACHING: // Get next set of dialogue lines
                 dialogueLines = dialogueController.RequestLines();
-                Debug.Log("Lines received:");
-                Debug.Log(dialogueLines);
+                dialogueCounter = 0;
                 break;
             case AlienState.PUZZLE: // Spawn puzzle
-                Instantiate(puzzle, gameObject.transform);
+                Debug.Log("open");
+
+                capsuleController.OpenPuzzleView();
+                puzzle.GetComponent<RingsPuzzle>().ResetVars(this.transform.gameObject);
                 break;
             case AlienState.COMPLETE: // Signal the puzzle is complete to the player
-                playerObject.GetComponent<CapsuleController>().SignalPuzzleComplete();
+                Debug.Log("close");
+
+                capsuleController.ClosePuzzleView();
+                capsuleController.SignalPuzzleComplete();
                 break;
             default:
                 break;
@@ -92,11 +100,16 @@ public class AlienController : MonoBehaviour
         {
             return false;
         }
-
+        Debug.Log("wake");
         playerObject = playerObj;
         ChangeState(AlienState.APPROACHING);
         
         return true;
+    }
+
+    public void SignalPuzzleComplete()
+    {
+        ChangeState(AlienState.COMPLETE);
     }
 
     private void ProgressDialogue()
