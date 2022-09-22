@@ -27,11 +27,10 @@ public class DialogueController : MonoBehaviour
     {
         DirectoryInfo dir = new DirectoryInfo("Assets/DialogueJsons/AlienDialogue");
         FileInfo[] info = dir.GetFiles("*.json");
-        Debug.Log("Info len: " + info.Length);
+
         foreach (var diagInfo in info)
         {
             TextAsset diagAsset = (TextAsset)AssetDatabase.LoadAssetAtPath("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name, typeof(TextAsset));
-            Debug.Log("Assets/DialogueJsons/AlienDialogue" + diagInfo.Name);
             dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
         }
     }

@@ -48,6 +48,9 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] private bool resetRotation = false;
     [Header( "RK_Rendering" )]
     [SerializeField] private Material renderTex;
+    [SerializeField] private Camera puzzleCamera;
+    [SerializeField] private Camera replaceCamera;
+    [SerializeField] private RenderTexture swapTex;
     [Header( "RK_Boundary" )]
     [SerializeField] [Tooltip( "Boundary distance - how far from centre can player go?" )] private float boundaryDistance;
     [SerializeField] [Tooltip( "Progress towards boundary at which static will appear (1.0 - at boundary, 0.0 - in centre)" )] [Range(0.0f, 1.0f)]private float staticStart;
@@ -65,6 +68,8 @@ public class CapsuleController : MonoBehaviour
         renderTex.SetFloat("_NoiseAmount", 0.05f);
         connectionText.SetActive(false);
         ChangeState(ShipState.COAST);
+
+        ClosePuzzleView();
     }
 
     // Update is called once per frame
@@ -163,6 +168,20 @@ public class CapsuleController : MonoBehaviour
     public void SignalPuzzleComplete()
     {
         ChangeState(ShipState.COAST);
+    }
+
+    public void OpenPuzzleView()
+    {
+        Debug.Log("Open view");
+        puzzleCamera.targetTexture = swapTex;
+        replaceCamera.targetTexture = null;
+    }
+
+    public void ClosePuzzleView()
+    {
+        Debug.Log("Close view");
+        replaceCamera.targetTexture = swapTex;
+        puzzleCamera.targetTexture = null;
     }
 
     private void ChangeState(ShipState targetState)
