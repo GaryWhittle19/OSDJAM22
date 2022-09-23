@@ -22,14 +22,14 @@ public class AlienController : MonoBehaviour
     AlienState alienState = AlienState.IDLE;
     private float dialogueTimeOut = 0.0f;
     private GameObject playerObject;
-    private string[] dialogueLines;
+    private string[] dialogueLines = new string[0];
 
     // Start is called before the first frame update
     void Start()
     {
-        dialogueController = FindObjectOfType<DialogueController>();
         puzzle = FindObjectOfType<RingsPuzzle>().gameObject;
         puzzle.GetComponent<RingsPuzzle>().ResetVars(this.transform.gameObject);
+        playerObject = FindObjectOfType<CapsuleController>().gameObject;
     }
 
     // Update is called once per frame
@@ -61,6 +61,8 @@ public class AlienController : MonoBehaviour
         Debug.Log("Changing state to: " + targetState);
 
         CapsuleController capsuleController = null;
+        dialogueController = FindObjectOfType<DialogueController>();
+
         if (playerObject)
         {
             capsuleController = playerObject.GetComponent<CapsuleController>();
@@ -71,17 +73,19 @@ public class AlienController : MonoBehaviour
             case AlienState.IDLE:
                 break;
             case AlienState.APPROACHING: // Get next set of dialogue lines
-                dialogueLines = dialogueController.RequestLines();
+
+                if (dialogueLines.Length <= 0) { dialogueLines = dialogueController.RequestLines(); };
+
+                if (dialogueLines.Length <= 0) { Debug.LogError("No dialogue lines!"); }
+
                 dialogueCounter = 0;
                 break;
             case AlienState.PUZZLE: // Spawn puzzle
-                Debug.Log("open");
 
                 capsuleController.OpenPuzzleView();
-                puzzle.GetComponent<RingsPuzzle>().ResetVars(this.transform.gameObject);
+                puzzle.GetComponent<RingsPuzzle>().ResetVars(transform.gameObject);
                 break;
             case AlienState.COMPLETE: // Signal the puzzle is complete to the player
-                Debug.Log("close");
 
                 capsuleController.ClosePuzzleView();
                 capsuleController.SignalPuzzleComplete();
@@ -92,6 +96,7 @@ public class AlienController : MonoBehaviour
 
         if (targetState > AlienState.IDLE) { ProgressDialogue(); }
         alienState = targetState;
+        Debug.Log("Changed state well");
     }
 
     public bool WakeAlien(GameObject playerObj)
@@ -101,7 +106,6 @@ public class AlienController : MonoBehaviour
             return false;
         }
         Debug.Log("wake");
-        playerObject = playerObj;
         ChangeState(AlienState.APPROACHING);
         
         return true;

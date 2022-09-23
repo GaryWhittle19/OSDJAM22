@@ -16,14 +16,15 @@ public class DialogueController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DialogueBox;
     [SerializeField] private float textResetSpeed = 0.2f;
 
+    public int dialogueInfoCount = 0;
+
     private string stringDisplay = "";
     private string stringQueue = "";
     private float textResetTime = 0.0f;
     private List<DialogueInfo> dialogueInfo = new List<DialogueInfo>();
     private int alienCounter = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         DirectoryInfo dir = new DirectoryInfo("Assets/DialogueJsons/AlienDialogue");
         FileInfo[] info = dir.GetFiles("*.json");
@@ -33,6 +34,13 @@ public class DialogueController : MonoBehaviour
             TextAsset diagAsset = (TextAsset)AssetDatabase.LoadAssetAtPath("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name, typeof(TextAsset));
             dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
         }
+
+        dialogueInfoCount = dialogueInfo.Count;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     // Update is called once per frame
@@ -64,6 +72,7 @@ public class DialogueController : MonoBehaviour
         if (alienCounter < dialogueInfo.Count) { lines = dialogueInfo[alienCounter].dialogueLines; }
         else { lines = new string[0]; lines[0] = "Error: Ran out of dialogue options"; }
         alienCounter++;
+        Debug.Log("Alien counter now " + alienCounter);
 
         return lines;
     }

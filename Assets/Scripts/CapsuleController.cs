@@ -235,12 +235,12 @@ public class CapsuleController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Alien"))
+        if (other.gameObject.CompareTag("Alien") && shipState != ShipState.ENCOUNTER)
         {
             var alienController = other.gameObject.GetComponent<AlienController>();
             if (alienController.WakeAlien(gameObject))
             {
-                ChangeState(CapsuleController.ShipState.ENCOUNTER);
+                ChangeState(ShipState.ENCOUNTER);
             }
         }
     }

@@ -17,12 +17,18 @@ public class SpawningController : MonoBehaviour
     [SerializeField] private Vector2 asteroidScaleRange;
     [SerializeField] private Vector2 asteroidRotationSpeed;
     [SerializeField] private Mesh[] asteroidMeshes;
+    
+    private List<GameObject> asteroidCollection = new List<GameObject>();
+    private float activeRangeSquared;
 
     [Header("RK_Aliens")]
     [SerializeField] private float minDistanceToAliens = 20.0f;
+    [SerializeField] private float alienSpawnRange = 100.0f;
+    private List<GameObject> alienCollection = new List<GameObject>();
 
-    private List<GameObject> asteroidCollection = new List<GameObject>();
-    private float activeRangeSquared;
+    [Header("RK_Misc")]
+    [SerializeField] private int spawnLoopAttemps = 100;
+
 
     private void Awake()
     {
@@ -33,7 +39,9 @@ public class SpawningController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Starting");
+        int numberOfAliens = FindObjectOfType<DialogueController>().dialogueInfoCount;
+        InitializeAliens(playerObject.transform.position, numberOfAliens);
+
         activeRangeSquared = asteroidActiveRange * asteroidActiveRange;
         InitializeAsteroidField(playerObject.transform.position);
     }
@@ -55,14 +63,25 @@ public class SpawningController : MonoBehaviour
         }
     }
 
+    public void InitializeAliens(Vector3 origin, int numberOfAliens)
+    {
+        for (int i = 0; i < numberOfAliens; i++)
+        {
+            // Get spawn parameters
+            Vector3 spawnPosition;
+            float alienScale = alienPrefab.GetComponent<Collider>().bounds.size.magnitude;
+            Debug.Log("Alien scale: " + alienScale);
+            GetSpawnPosition(out spawnPosition, alienScale, alienSpawnRange, origin);
+
+            GameObject alienInstance = Instantiate(alienPrefab, spawnPosition, Quaternion.identity);
+            alienCollection.Add(alienInstance);
+        }
+    }
+
     public void InitializeAsteroidField(Vector3 origin)
     {
-        Debug.Log("Init: " + numAsteroids);
-
         for (int i = 0; i < numAsteroids; i++)
         {
-            Debug.Log("Init: " + i);
-
             // Instantiate asteroid
             GameObject asteroidInstance = Instantiate(asteroidPrefab, Vector3.zero, Quaternion.identity);
 
@@ -79,24 +98,8 @@ public class SpawningController : MonoBehaviour
             rotationAxis *= Random.Range(asteroidRotationSpeed.x, asteroidRotationSpeed.y) * asteroidScale;
 
             // Get an empty spawn position
-            int loopLimit = 100;
-            do
-            {
-                spawnPosition = Random.insideUnitSphere;
-                spawnPosition *= asteroidSpawnRange;
-                spawnPosition += playerObject.transform.position;
-                spawnPosition.y = -10.0f;
-
-                loopLimit--;
-
-                // Prevent infinite loop, if this happens there are likely too many objects in range
-                if (loopLimit < 0)
-                {
-                    Debug.LogWarning("Asteroid initialisation exited early: Couldn't find an appropriate spawn location.");
-                    return;
-                }
-            }
-            while (Physics.CheckSphere(spawnPosition, asteroidScale * 1.1f));
+            if (GetSpawnPosition(out spawnPosition, asteroidScale * 1.1f, asteroidSpawnRange, origin) == false)
+                return;
 
             // Apply position, scale, rotation
             asteroidInstance.SetActive(true);   // Activate asteroid so it comes up in future loop's spawn checking
@@ -112,4 +115,30 @@ public class SpawningController : MonoBehaviour
 
         UpdateAsteroids();
     }
+
+    private bool GetSpawnPosition(out Vector3 spawnPosition, float checkAreaScale, float spawnRange, Vector3 origin)
+    {
+        // Get an empty spawn position
+        int loopLimit = spawnLoopAttemps;
+        do
+        {
+            spawnPosition = Random.insideUnitSphere;
+            spawnPosition *= spawnRange;
+            spawnPosition += origin;
+            spawnPosition.y = -10.0f;
+
+            loopLimit--;
+
+            // Prevent infinite loop, if this happens there are likely too many objects in range
+            if (loopLimit < 0)
+            {
+                Debug.LogWarning("Asteroid initialisation exited early: Couldn't find an appropriate spawn location.");
+                return false;
+            }
+        }
+        while (Physics.CheckSphere(spawnPosition, checkAreaScale));
+
+        return true;
+    }
+
 }
