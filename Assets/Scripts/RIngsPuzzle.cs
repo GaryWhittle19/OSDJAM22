@@ -61,7 +61,7 @@ public class RingsPuzzle : MonoBehaviour
     {
 
 
-        if (!isPuzzleSolved)
+        if (!isPuzzleSolved && alienRef != null)
         {
             RaycastHit hit;
             int layerMask = 1 << 8;
