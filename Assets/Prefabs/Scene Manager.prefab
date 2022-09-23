@@ -48,6 +48,12 @@ MonoBehaviour:
   asteroidPrefab: {fileID: 1536842140465243867, guid: fdf3c6eb583569148a8e1dd483bd5268, type: 3}
   numAsteroids: 1200
   spawnRange: 100
-  scaleRange: {x: 0.5, y: 1}
-  rotationSpeed: {x: 0.01, y: 0.02}
+  activeRange: 10
+  scaleRange: {x: 0.2, y: 0.4}
+  rotationSpeed: {x: 0.01, y: 0.2}
   generateNewAsteroids: 0
+  asteroidMeshes:
+  - {fileID: -8136317043942708646, guid: 8edaa813508f26c4f8a0a1b84b9ecb70, type: 3}
+  - {fileID: -8411264719490064891, guid: 6accd6991441b7e4eb6d33299d908461, type: 3}
+  - {fileID: 8076971328543133373, guid: dab8b568a97e8a54286db9840961912a, type: 3}
+  avgFrameRate: 0

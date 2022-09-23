@@ -5,88 +5,104 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour
 {
     [Header( "RK_References" )]
-    [SerializeField] private GameObject playerObject;
+    private GameObject playerObject;
     [Header( "RK_Meshes" )]
     [SerializeField] private GameObject asteroidPrefab;
     [Header( "RK_Asteroids" )]
     [SerializeField] private int numAsteroids;
     [SerializeField] private float spawnRange;
+    [SerializeField] private float activeRange = 10.0f;
     [SerializeField] private Vector2 scaleRange;
     [SerializeField] private Vector2 rotationSpeed;
     [SerializeField] private bool generateNewAsteroids;
+    [SerializeField] private Mesh[] asteroidMeshes;
 
     private List<GameObject> asteroidCollection = new List<GameObject>();
-    private bool firstPass = true;
-    private int firstPassCount = 0;
+    private float activeRangeSquared;
+
+    private void Awake()
+    {
+        playerObject = FindObjectOfType<CapsuleController>().gameObject;
+        
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        for ( int i = 0; i < numAsteroids; i++ )
-        {
-            GameObject asteroidInst = Instantiate( asteroidPrefab, Vector3.zero, Quaternion.identity );
-            asteroidInst.SetActive( false );
-            asteroidCollection.Add( asteroidInst );
-        }
+        activeRangeSquared = activeRange * activeRange;
     }
+
+    public int avgFrameRate;
 
     // Update is called once per frame
     void Update()
     {
-        if ( !firstPass && !generateNewAsteroids ) { return; }
+        float current = 0;
+        current = (int)(1f / Time.unscaledDeltaTime);
+        avgFrameRate = (int)current;
+        Debug.Log(avgFrameRate.ToString() + " FPS");
 
-        // Prune existing asteroids
-        foreach ( var asteroid in asteroidCollection )
+        UpdateAsteroids();
+    }
+
+    private void UpdateAsteroids()
+    {
+        foreach (var asteroid in asteroidCollection)
         {
-            if ( Vector3.Distance( asteroid.transform.position, playerObject.transform.position ) > spawnRange )
-            {
-                asteroid.SetActive( false );
-            }
-        }
-
-        // Spawn new asteroids
-        SpawnAsteroid();
-
-        if ( firstPassCount++ > numAsteroids )
-        {
-            firstPass = false;
+            Vector3 playerDistance = playerObject.transform.position - asteroid.transform.position;
+            asteroid.SetActive(playerDistance.sqrMagnitude < activeRangeSquared);
         }
     }
 
-    void SpawnAsteroid()
+    public void InitializeAsteroidField(Vector3 origin)
     {
-        GameObject asteroidInst = new GameObject();
-        bool found = false;
-        // Find inactive asteroid
-        foreach ( var asteroid in asteroidCollection )
+        for (int i = 0; i < numAsteroids; i++)
         {
-            if ( asteroid.activeInHierarchy == false )
+            // Instantiate asteroid
+            GameObject asteroidInstance = Instantiate(asteroidPrefab, Vector3.zero, Quaternion.identity);
+
+            // Choose random mesh and add mesh collider
+            asteroidInstance.GetComponent<MeshFilter>().mesh = asteroidMeshes[Random.Range(0, asteroidMeshes.Length - 1)];
+            var meshCollider = asteroidInstance.AddComponent<MeshCollider>();
+            meshCollider.convex = true;
+
+            // Set spawn position, scale, and rotation axis/speed
+            Vector3 spawnPosition;
+            float asteroidScale = Random.Range(scaleRange.x, scaleRange.y);
+            Vector3 rotationAxis = new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            rotationAxis.Normalize();
+            rotationAxis *= Random.Range(rotationSpeed.x, rotationSpeed.y) * asteroidScale;
+
+            // Get an empty spawn position
+            int loopLimit = 100;
+            do
             {
-                asteroidInst = asteroid;
-                found = true;
+                spawnPosition = Random.insideUnitSphere;
+                spawnPosition *= spawnRange;
+                spawnPosition += playerObject.transform.position;
+                spawnPosition.y = -10.0f;
+
+                // Prevent infinite loop, if this happens there are likely too many objects in range
+                if (loopLimit < 0)
+                {
+                    Debug.LogWarning("Asteroid initialisation exited early: Couldn't find an appropriate spawn location.");
+                    return;
+                }
             }
+            while (Physics.CheckSphere(spawnPosition, asteroidScale * 1.1f));
+
+            // Apply position, scale, rotation
+            asteroidInstance.SetActive(true);   // Activate asteroid so it comes up in future loop's spawn checking
+            Rigidbody rb = asteroidInstance.GetComponent<Rigidbody>();
+            rb.angularDrag = 0.0f;
+
+            rb.AddRelativeTorque(rotationAxis, ForceMode.Impulse);
+            asteroidInstance.transform.localScale = Vector3.one * asteroidScale;
+            asteroidInstance.transform.SetPositionAndRotation(spawnPosition, Quaternion.identity);
+
+            asteroidCollection.Add(asteroidInstance);
         }
 
-        if ( found )
-        {
-            Vector3 spawnPosition = Random.insideUnitSphere;
-            spawnPosition *= spawnRange;
-            spawnPosition += playerObject.transform.position;
-            spawnPosition.y = -10.0f;
-            asteroidInst.transform.SetPositionAndRotation( spawnPosition, Quaternion.identity );
-            float astScale = Random.Range( scaleRange.x, scaleRange.y );
-            float instRad = 1.1f * astScale; // What does instRad mean? Setting lower for better asteroid placement
-            Rigidbody rb = asteroidInst.GetComponent<Rigidbody>();
-            Vector3 rotationAxis = new Vector3( Random.Range( 0.0f, 1.0f ), Random.Range( 0.0f, 1.0f ), Random.Range( 0.0f, 1.0f ) );
-            rotationAxis.Normalize();
-            rb.angularDrag = 0.0f;
-            asteroidInst.transform.localScale = new Vector3( astScale, astScale, astScale );
-            if ( Physics.CheckSphere( spawnPosition, instRad ) == false )
-            {
-                asteroidInst.SetActive( true );
-                rotationAxis *= Random.Range( rotationSpeed.x, rotationSpeed.y ) * astScale;
-                rb.AddRelativeTorque( rotationAxis, ForceMode.Impulse );
-            }
-        }
+        UpdateAsteroids();
     }
 }
