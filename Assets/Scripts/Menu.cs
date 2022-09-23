@@ -49,6 +49,14 @@ public class Menu : MonoBehaviour
         missionControlCamObject.GetComponent<MissionControlCamera>().BeginTransition( selection.INTRO );
     }
 
+    public void Update()
+    {
+        if ( Input.GetKeyDown( KeyCode.Escape ) )
+        {
+            Application.Quit();
+        }
+    }
+
     public void MenuOptionChosen( MenuOption chosenOption )
     {
         switch ( chosenOption.type )
