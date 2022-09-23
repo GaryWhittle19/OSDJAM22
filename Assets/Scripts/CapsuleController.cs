@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CapsuleController : MonoBehaviour
 {
-    public enum ShipState
+    // State of player ship
+    private enum ShipState
     {
         THRUST,
         RCS,
@@ -12,7 +13,6 @@ public class CapsuleController : MonoBehaviour
         SPIN_OUT,
         ENCOUNTER
     }
-
     // Mesh
     private Rigidbody rb;
     // Movement
@@ -23,17 +23,24 @@ public class CapsuleController : MonoBehaviour
     private Animator animator;
     private float spinOutTimer = 0.0f;
     private float collisionTimeout = 0.0f;
+    private bool resetRotation = false;
     // Boundary
-    Vector3 startingPosition;
-
+    private Vector3 startingPosition;
+    private float currentBoundaryDistance = 6.0f;
+    private float currentBlackoutStart = 0.5f;
+    // Mission Control Cam Transitions
+    private float cameraTransitionTimer = 0.0f;
+    private bool transitionLogicPerformed = false;
+    //
     [Header( "RK_Particles" )]
     [SerializeField] ParticleSystem psThrust;
+    //
     [Header( "RK_State" )]
     [SerializeField] private ShipState shipState;
     [SerializeField] private ShipState prevShipState = ShipState.COAST;
+    //
     [Header( "RK_Movement" )]
     [SerializeField] float movementForce = 100.0f;
-    [SerializeField] float engineStartJerkFactor = 1.0f;
     [SerializeField] float maxSpeed = 2.0f;
     [SerializeField] [Range(0.95f, 1.0f)] float velocityTaper = 0.985f;
     [SerializeField] float rotateSpeedDegrees = 260.0f;
@@ -41,20 +48,37 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] float lateralDriftCorrectionFactor = 100.0f;
     [SerializeField] float mainThrustDeadzone = 0.5f;
     [SerializeField] private GameObject directionalMesh;
+    [SerializeField] private float directionalMeshDistance = 1.65f;
+    //
     [Header( "RK_Collision" )]
     [SerializeField] private float collisionKnockback = 10.0f;
     [SerializeField] private float spinOutTimerValue = 3.0f;
     [SerializeField] private float collisionTimeoutValue = 3.0f;
-    [SerializeField] private bool resetRotation = false;
+    //
     [Header( "RK_Rendering" )]
     [SerializeField] private Material renderTex;
     [SerializeField] private Camera puzzleCamera;
     [SerializeField] private Camera replaceCamera;
     [SerializeField] private RenderTexture swapTex;
+    // For handling background switches
+    [SerializeField] private Material menuNebula;
+    [SerializeField] private Material menuStarfield;
+    [SerializeField] private Material storyNebula;
+    [SerializeField] private Material storyStarfield;
+    [SerializeField] private GameObject nebulaBackground;
+    [SerializeField] private GameObject starfieldBackground;
+    //
     [Header( "RK_Boundary" )]
-    [SerializeField] [Tooltip( "Boundary distance - how far from centre can player go?" )] private float boundaryDistance;
-    [SerializeField] [Tooltip( "Progress towards boundary at which static will appear (1.0 - at boundary, 0.0 - in centre)" )] [Range(0.0f, 1.0f)]private float staticStart;
+    [SerializeField] private float menuBoundaryDistance = 6.0f;
+    [SerializeField] private float storyBoundaryDistance = 90.0f;
+    // NOTE: blackoutStart - ratio of boundary at which static starts (0.8 = 80% for example)
+    [SerializeField] [Range( 0.0f, 1.0f )] private float menuBlackoutStart = 0.5f; 
+    [SerializeField] [Range( 0.0f, 1.0f )] private float storyBlackoutStart = 0.8f;
     [SerializeField] private GameObject connectionText;
+    //
+    [Header( "RK_Menu" )]
+    [SerializeField] private GameObject menuObject;
+    [SerializeField] private GameObject missionControlCamera;
 
     // Start is called before the first frame update
     void Start()
@@ -62,12 +86,16 @@ public class CapsuleController : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         controlVector = transform.forward;
-        collisionKnockback = 10.0f;
         startingPosition = gameObject.transform.position;
 
-        renderTex.SetFloat("_NoiseAmount", 0.05f);
+        renderTex.SetFloat("_BlackoutAmount", 0.05f);
+        currentBlackoutStart = menuBlackoutStart;
         connectionText.SetActive(false);
         ChangeState(ShipState.COAST);
+
+        // Backgrounds need reset
+        nebulaBackground.GetComponent<MeshRenderer>().material = menuNebula;
+        starfieldBackground.GetComponent<MeshRenderer>().material = menuStarfield;
 
         ClosePuzzleView();
     }
@@ -75,9 +103,59 @@ public class CapsuleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        buttonPressed = Input.GetKey( "space" );
-
-        PlayerBoundaryCheck();
+        // NOTE: Currently we deal with menu transitions in this Update call, could be refactored.
+        if( !missionControlCamera.GetComponent<MissionControlCamera>().cameraTravelling )
+        {
+            buttonPressed = Input.GetKey( "space" );
+            PlayerBoundaryCheck();
+            // NOTE: Resetting these every frame is messy
+            cameraTransitionTimer = 0.0f;
+            transitionLogicPerformed = false;
+        }
+        else 
+        {
+            cameraTransitionTimer += Time.deltaTime;
+            float currentSeconds = cameraTransitionTimer % 60;
+            // NOTE: As above
+            buttonPressed = false;
+            switch ( missionControlCamera.GetComponent<MissionControlCamera>().travellingTo )
+            {
+                case Menu.selection.STORY:
+                    if( currentSeconds > 2.0f && ! transitionLogicPerformed )
+                    {
+                        // Disable the menu
+                        menuObject.SetActive( false );
+                        // Stop player from moving
+                        rb.velocity.Set( 0.0f, 0.0f, 0.0f );
+                        // First, set the player to the start position
+                        rb.MovePosition( startingPosition );
+                        rb.rotation = Quaternion.Euler( new Vector3( 0, 0, 0 ));
+                        // Then, swap out the backgrounds
+                        nebulaBackground.GetComponent<MeshRenderer>().material = storyNebula;
+                        starfieldBackground.GetComponent<MeshRenderer>().material = storyStarfield;
+                        // Finally, change boundary distance
+                        currentBoundaryDistance = storyBoundaryDistance;
+                        transitionLogicPerformed = true;
+                    }
+                    break;
+                case Menu.selection.RETURNING:
+                    if ( currentSeconds > 2.0f && !transitionLogicPerformed )
+                    {
+                        // Stop player from moving
+                        rb.velocity.Set( 0.0f, 0.0f, 0.0f );
+                        // First, set the player to the start position
+                        rb.MovePosition( startingPosition );
+                        rb.rotation = Quaternion.Euler( new Vector3( 0, 0, 0 ) );
+                        // Then, swap out the backgrounds
+                        nebulaBackground.GetComponent<MeshRenderer>().material = menuNebula;
+                        starfieldBackground.GetComponent<MeshRenderer>().material = menuStarfield;
+                        // Finally, change boundary distance
+                        currentBoundaryDistance = menuBoundaryDistance;
+                        transitionLogicPerformed = true;
+                    }
+                    break;
+            }
+        }
     }
 
     private void PlayerBoundaryCheck()
@@ -85,20 +163,20 @@ public class CapsuleController : MonoBehaviour
         // Get distance from start position
         float distFromStart = Vector3.Distance( gameObject.transform.position, startingPosition );
         // Get distance where static should begin
-        float staticStartDist = boundaryDistance * staticStart;
+        float staticStartDist = currentBoundaryDistance * currentBlackoutStart;
         // If player has passed that point
         if ( distFromStart - staticStartDist > 0.0f )
         {
             // Losing connection begin
             connectionText.SetActive( true );
             // Get amount of progression between the point of static starting and the boundary
-            float boundaryProgression = Mathf.Min( (distFromStart - staticStartDist) / (boundaryDistance - staticStartDist), 1.0f );
+            float boundaryProgression = Mathf.Min( (distFromStart - staticStartDist) / (currentBoundaryDistance - staticStartDist), 1.0f );
             // Set the static (or noise) amount
-            renderTex.SetFloat( "_NoiseAmount", boundaryProgression );
+            renderTex.SetFloat( "_BlackoutAmount", boundaryProgression );
             // Return player to start position if they go off-screen
-            if ( distFromStart > boundaryDistance )
+            if ( distFromStart > currentBoundaryDistance )
             {
-                renderTex.SetFloat( "_NoiseAmount", 0.0f );
+                renderTex.SetFloat( "_BlackoutAmount", 0.0f );
                 gameObject.transform.position.Set( startingPosition.x, startingPosition.y, startingPosition.z );
                 rb.MovePosition( startingPosition );
             }
@@ -122,7 +200,7 @@ public class CapsuleController : MonoBehaviour
             rb.velocity = maxPossibleVelocity;
         };
 
-        directionalMesh.transform.position = transform.position + controlVector * 1.5f;
+        directionalMesh.transform.position = transform.position + controlVector * directionalMeshDistance;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -213,7 +291,7 @@ public class CapsuleController : MonoBehaviour
             case ShipState.RCS:
                 break;
             case ShipState.THRUST:
-                rb.AddForce(transform.forward * movementForce * engineStartJerkFactor * Time.fixedDeltaTime);
+                rb.AddForce(transform.forward * movementForce * Time.fixedDeltaTime);
                 psThrust.Play();
                 break;
             case ShipState.SPIN_OUT:

@@ -11,7 +11,7 @@ Shader "Hidden/CRTShader"
         _VignetteSmooth("Vignette smoothness", Range(0.0, 2.0)) = 0.6
         _VignetteEdge("Vignette edge rounding", Range(0, 20)) = 8.0
         _NoiseSize("Noise size", Range(0, 100)) = 75
-		_NoiseAmount("Noise amount", Range(0, 1.0)) = 0.05
+		_BlackoutAmount("Blackout amount", Range(0, 1.0)) = 0.05
     }
     SubShader
     {
@@ -101,7 +101,7 @@ Shader "Hidden/CRTShader"
             float _VignetteSmooth;
             float _VignetteEdge;
             float _NoiseSize;
-            float _NoiseAmount;
+            float _BlackoutAmount;
 
             fixed4 frag (v2f i) : SV_Target
             {
@@ -109,7 +109,7 @@ Shader "Hidden/CRTShader"
                 float scan = scanline(i.uv, _Scan1Size, _Scan1Speed);
                 fixed4 col = lerp(tex2D(_MainTex, crt_uv), fixed4(scan, scan, scan, 1.0f), _ScanLineAmount) * vignette(i.uv, 1.9f, 0.6f, 8.0f);
                 //return lerp(col, fixed4(noise(i.uv * _NoiseSize), noise(i.uv * _NoiseSize), noise(i.uv * _NoiseSize), 1.0f), _NoiseAmount);
-                return lerp(col, 0, _NoiseAmount);
+                return lerp(col, 0, _BlackoutAmount);
             }
             ENDCG
         }

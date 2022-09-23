@@ -12,7 +12,8 @@ public class Menu : MonoBehaviour
         OPTIONS,
         CREDITS,
         QUIT, 
-        INTRO
+        INTRO,
+        RETURNING // Note: returning to menu
     }
     [Header( "RK_Camera" )]
     [SerializeField] private GameObject missionControlCamObject;
@@ -20,11 +21,10 @@ public class Menu : MonoBehaviour
     [SerializeField] private List<selection> entries;               // List of menu entries
     [SerializeField] private GameObject triggerPrefab;              // Menu "button"/trigger prefab to use
     [SerializeField] private float menuDistance;                    // Distance of menu options from player
-    private Vector3 triggerLocation;
     
     void Start()
     {
-        triggerLocation = new Vector3( 0.0f, -10.0f, menuDistance );
+        Vector3 triggerLocation = new Vector3( 0.0f, -10.0f, menuDistance );
         foreach ( selection entry in entries )
         {
             // Trigger for menu option
@@ -44,6 +44,7 @@ public class Menu : MonoBehaviour
             t.transform.localScale = new Vector3(0.025f, 0.025f, 0.025f);
             t.anchor = TextAnchor.UpperCenter;
             t.color = Color.green;
+            t.transform.parent = transform;
         }
         missionControlCamObject.GetComponent<MissionControlCamera>().BeginTransition( selection.INTRO );
     }
@@ -55,15 +56,16 @@ public class Menu : MonoBehaviour
             case selection.STORY:
                 missionControlCamObject.GetComponent<MissionControlCamera>().BeginTransition(selection.STORY);
                 break;
+            // NOTE: Stretch goals include setting up these menu options!
             //case selection.ENDLESS:
 
             //    break;
             //case selection.CREDITS:
 
             //    break;
-            case selection.OPTIONS:
+            //case selection.OPTIONS:
                 
-                break;
+            //    break;
             case selection.QUIT:
                 Application.Quit();
                 break;
