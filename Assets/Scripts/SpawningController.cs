@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AsteroidController : MonoBehaviour
+public class SpawningController : MonoBehaviour
 {
     [Header( "RK_References" )]
     private GameObject playerObject;
-    [Header( "RK_Meshes" )]
+    [Header( "RK_Prefabs" )]
     [SerializeField] private GameObject asteroidPrefab;
+    [SerializeField] private GameObject alienPrefab;
+
     [Header( "RK_Asteroids" )]
     [SerializeField] private int numAsteroids;
-    [SerializeField] private float spawnRange;
-    [SerializeField] private float activeRange = 10.0f;
-    [SerializeField] private Vector2 scaleRange;
-    [SerializeField] private Vector2 rotationSpeed;
-    [SerializeField] private bool generateNewAsteroids;
+    [SerializeField] private float asteroidSpawnRange;
+    [SerializeField] private float asteroidActiveRange = 10.0f;
+    [SerializeField] private Vector2 asteroidScaleRange;
+    [SerializeField] private Vector2 asteroidRotationSpeed;
     [SerializeField] private Mesh[] asteroidMeshes;
+
+    [Header("RK_Aliens")]
+    [SerializeField] private float minDistanceToAliens = 20.0f;
 
     private List<GameObject> asteroidCollection = new List<GameObject>();
     private float activeRangeSquared;
@@ -29,7 +33,9 @@ public class AsteroidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        activeRangeSquared = activeRange * activeRange;
+        Debug.Log("Starting");
+        activeRangeSquared = asteroidActiveRange * asteroidActiveRange;
+        InitializeAsteroidField(playerObject.transform.position);
     }
 
     public int avgFrameRate;
@@ -37,11 +43,6 @@ public class AsteroidController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float current = 0;
-        current = (int)(1f / Time.unscaledDeltaTime);
-        avgFrameRate = (int)current;
-        Debug.Log(avgFrameRate.ToString() + " FPS");
-
         UpdateAsteroids();
     }
 
@@ -56,8 +57,12 @@ public class AsteroidController : MonoBehaviour
 
     public void InitializeAsteroidField(Vector3 origin)
     {
+        Debug.Log("Init: " + numAsteroids);
+
         for (int i = 0; i < numAsteroids; i++)
         {
+            Debug.Log("Init: " + i);
+
             // Instantiate asteroid
             GameObject asteroidInstance = Instantiate(asteroidPrefab, Vector3.zero, Quaternion.identity);
 
@@ -68,19 +73,21 @@ public class AsteroidController : MonoBehaviour
 
             // Set spawn position, scale, and rotation axis/speed
             Vector3 spawnPosition;
-            float asteroidScale = Random.Range(scaleRange.x, scaleRange.y);
+            float asteroidScale = Random.Range(asteroidScaleRange.x, asteroidScaleRange.y);
             Vector3 rotationAxis = new Vector3(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
             rotationAxis.Normalize();
-            rotationAxis *= Random.Range(rotationSpeed.x, rotationSpeed.y) * asteroidScale;
+            rotationAxis *= Random.Range(asteroidRotationSpeed.x, asteroidRotationSpeed.y) * asteroidScale;
 
             // Get an empty spawn position
             int loopLimit = 100;
             do
             {
                 spawnPosition = Random.insideUnitSphere;
-                spawnPosition *= spawnRange;
+                spawnPosition *= asteroidSpawnRange;
                 spawnPosition += playerObject.transform.position;
                 spawnPosition.y = -10.0f;
+
+                loopLimit--;
 
                 // Prevent infinite loop, if this happens there are likely too many objects in range
                 if (loopLimit < 0)

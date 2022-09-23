@@ -44,16 +44,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12e87e9b8b432843aeadc144415c0df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerObject: {fileID: 0}
   asteroidPrefab: {fileID: 1536842140465243867, guid: fdf3c6eb583569148a8e1dd483bd5268, type: 3}
+  alienPrefab: {fileID: 1454601771133809192, guid: eddfe61bacc27dc4781d04580bdef0d4, type: 3}
   numAsteroids: 1200
-  spawnRange: 100
-  activeRange: 10
-  scaleRange: {x: 0.2, y: 0.4}
-  rotationSpeed: {x: 0.01, y: 0.2}
-  generateNewAsteroids: 0
+  asteroidSpawnRange: 100
+  asteroidActiveRange: 10
+  asteroidScaleRange: {x: 0.3, y: 0.6}
+  asteroidRotationSpeed: {x: 0.2, y: 0.6}
   asteroidMeshes:
   - {fileID: -8136317043942708646, guid: 8edaa813508f26c4f8a0a1b84b9ecb70, type: 3}
   - {fileID: -8411264719490064891, guid: 6accd6991441b7e4eb6d33299d908461, type: 3}
   - {fileID: 8076971328543133373, guid: dab8b568a97e8a54286db9840961912a, type: 3}
+  minDistanceToAliens: 20
   avgFrameRate: 0
