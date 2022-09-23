@@ -22,8 +22,6 @@ public class AsteroidController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        float astRadius = asteroidPrefab.GetComponent<BoxCollider>().bounds.extents.x * 2;
-
         for ( int i = 0; i < numAsteroids; i++ )
         {
             GameObject asteroidInst = Instantiate( asteroidPrefab, Vector3.zero, Quaternion.identity );

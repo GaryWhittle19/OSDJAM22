@@ -122,7 +122,7 @@ public class CapsuleController : MonoBehaviour
             rb.velocity = maxPossibleVelocity;
         };
 
-        directionalMesh.transform.position = transform.position + controlVector;
+        directionalMesh.transform.position = transform.position + controlVector * 1.5f;
     }
 
     private void OnCollisionEnter(Collision collision)
