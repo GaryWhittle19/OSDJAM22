@@ -135,6 +135,7 @@ public class CapsuleController : MonoBehaviour
                         starfieldBackground.GetComponent<MeshRenderer>().material = storyStarfield;
                         // Finally, change boundary distance
                         currentBoundaryDistance = storyBoundaryDistance;
+                        currentBlackoutStart = storyBlackoutStart;
                         transitionLogicPerformed = true;
                     }
                     break;
@@ -151,6 +152,7 @@ public class CapsuleController : MonoBehaviour
                         starfieldBackground.GetComponent<MeshRenderer>().material = menuStarfield;
                         // Finally, change boundary distance
                         currentBoundaryDistance = menuBoundaryDistance;
+                        currentBlackoutStart = menuBlackoutStart;
                         transitionLogicPerformed = true;
                     }
                     break;
