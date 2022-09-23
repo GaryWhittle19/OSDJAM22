@@ -72,7 +72,6 @@ public class DialogueController : MonoBehaviour
         if (alienCounter < dialogueInfo.Count) { lines = dialogueInfo[alienCounter].dialogueLines; }
         else { lines = new string[0]; lines[0] = "Error: Ran out of dialogue options"; }
         alienCounter++;
-        Debug.Log("Alien counter now " + alienCounter);
 
         return lines;
     }
@@ -80,5 +79,10 @@ public class DialogueController : MonoBehaviour
     private static DialogueInfo CreateFromJson(string jsonString)
     {
         return JsonUtility.FromJson<DialogueInfo>(jsonString);
+    }
+
+    public bool DialogueExhausted()
+    {
+        return alienCounter >= dialogueInfo.Count;
     }
 }

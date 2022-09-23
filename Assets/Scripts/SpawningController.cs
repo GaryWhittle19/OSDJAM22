@@ -39,11 +39,7 @@ public class SpawningController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        int numberOfAliens = FindObjectOfType<DialogueController>().dialogueInfoCount;
-        InitializeAliens(playerObject.transform.position, numberOfAliens);
-
         activeRangeSquared = asteroidActiveRange * asteroidActiveRange;
-        InitializeAsteroidField(playerObject.transform.position);
     }
 
     public int avgFrameRate;
@@ -139,6 +135,23 @@ public class SpawningController : MonoBehaviour
         while (Physics.CheckSphere(spawnPosition, checkAreaScale));
 
         return true;
+    }
+
+    public void ResetSpawners()
+    {
+        foreach (var asteroid in asteroidCollection)
+        {
+            Destroy(asteroid);
+        }
+
+        asteroidCollection.Clear();
+
+        foreach (var alien in alienCollection)
+        {
+            Destroy(alien);
+        }
+
+        alienCollection.Clear();
     }
 
 }

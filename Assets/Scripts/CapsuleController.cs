@@ -80,6 +80,9 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] private GameObject menuObject;
     [SerializeField] private GameObject missionControlCamera;
 
+    [Header("RK_Spawning")]
+    private SpawningController spawningController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +99,8 @@ public class CapsuleController : MonoBehaviour
         // Backgrounds need reset
         nebulaBackground.GetComponent<MeshRenderer>().material = menuNebula;
         starfieldBackground.GetComponent<MeshRenderer>().material = menuStarfield;
+
+        spawningController = FindObjectOfType<SpawningController>();
 
         ClosePuzzleView();
     }
@@ -137,11 +142,17 @@ public class CapsuleController : MonoBehaviour
                         currentBoundaryDistance = storyBoundaryDistance;
                         currentBlackoutStart = storyBlackoutStart;
                         transitionLogicPerformed = true;
+                        // Spawn asteroids and aliens
+                        int numberOfAliens = FindObjectOfType<DialogueController>().dialogueInfoCount;
+                        spawningController.InitializeAliens(transform.position, numberOfAliens);
+                        spawningController.InitializeAsteroidField(transform.position);
                     }
                     break;
                 case Menu.selection.RETURNING:
                     if ( currentSeconds > 2.0f && !transitionLogicPerformed )
                     {
+                        // Enable the menu
+                        menuObject.SetActive(true);
                         // Stop player from moving
                         rb.velocity.Set( 0.0f, 0.0f, 0.0f );
                         // First, set the player to the start position
@@ -154,6 +165,8 @@ public class CapsuleController : MonoBehaviour
                         currentBoundaryDistance = menuBoundaryDistance;
                         currentBlackoutStart = menuBlackoutStart;
                         transitionLogicPerformed = true;
+                        // Clean asteroids
+                        spawningController.ResetSpawners();
                     }
                     break;
             }
@@ -281,6 +294,13 @@ public class CapsuleController : MonoBehaviour
             case ShipState.SPIN_OUT:
                 animator.Play("Idle");
                 resetRotation = true;
+                break;
+            case ShipState.ENCOUNTER:
+                if (FindObjectOfType<DialogueController>().DialogueExhausted())
+                {
+                    missionControlCamera.GetComponent<MissionControlCamera>().BeginTransition(Menu.selection.RETURNING);
+                }
+
                 break;
             default:
                 break;
