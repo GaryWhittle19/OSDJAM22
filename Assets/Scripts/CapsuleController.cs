@@ -292,7 +292,6 @@ public class CapsuleController : MonoBehaviour
                 psThrust.Stop();
                 break;
             case ShipState.SPIN_OUT:
-                animator.Play("Idle");
                 resetRotation = true;
                 break;
             case ShipState.ENCOUNTER:
@@ -317,7 +316,6 @@ public class CapsuleController : MonoBehaviour
                 psThrust.Play();
                 break;
             case ShipState.SPIN_OUT:
-                animator.Play("Blink");
                 resetRotation = true;
                 spinOutTimer = spinOutTimerValue;
                 break;

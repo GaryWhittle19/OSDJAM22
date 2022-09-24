@@ -285,7 +285,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1766244180542493620}
   - component: {fileID: 1972734035807942494}
-  - component: {fileID: 6883663857040710713}
   - component: {fileID: 5846995033318131037}
   - component: {fileID: 573235599793518760}
   m_Layer: 0
@@ -354,14 +353,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &6883663857040710713
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2511814744821835682}
-  m_Enabled: 0
 --- !u!114 &5846995033318131037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,10 +377,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &4330196133871635235
 GameObject:
@@ -627,7 +618,6 @@ GameObject:
   - component: {fileID: 6105326737558259492}
   - component: {fileID: 8654902244448172450}
   - component: {fileID: 8654902244448172461}
-  - component: {fileID: 8654902244448172451}
   - component: {fileID: 3614806875078244961}
   m_Layer: 0
   m_Name: Player
@@ -688,7 +678,6 @@ MonoBehaviour:
   shipState: 0
   prevShipState: 2
   movementForce: 100
-  engineStartJerkFactor: 1
   maxSpeed: 2
   velocityTaper: 0.985
   rotateSpeedDegrees: 260
@@ -696,37 +685,27 @@ MonoBehaviour:
   lateralDriftCorrectionFactor: 100
   mainThrustDeadzone: 0.5
   directionalMesh: {fileID: 778731142020166978}
+  directionalMeshDistance: 1.65
   collisionKnockback: 10
   spinOutTimerValue: 3
   collisionTimeoutValue: 3
-  resetRotation: 0
   renderTex: {fileID: 2100000, guid: 1f712aeb1199905419f3a20b12941f0d, type: 2}
   puzzleCamera: {fileID: 0}
   replaceCamera: {fileID: 0}
   swapTex: {fileID: 0}
-  boundaryDistance: 90
-  staticStart: 0.8
+  menuNebula: {fileID: 0}
+  menuStarfield: {fileID: 0}
+  storyNebula: {fileID: 0}
+  storyStarfield: {fileID: 0}
+  nebulaBackground: {fileID: 0}
+  starfieldBackground: {fileID: 0}
+  menuBoundaryDistance: 6
+  storyBoundaryDistance: 90
+  menuBlackoutStart: 0.5
+  storyBlackoutStart: 0.8
   connectionText: {fileID: 0}
---- !u!95 &8654902244448172451
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837995631584213210}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ff8a713c63a9bd143b5c12fdaea80f6b, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  menuObject: {fileID: 0}
+  missionControlCamera: {fileID: 0}
 --- !u!136 &3614806875078244961
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -738,9 +717,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.6
-  m_Height: 7
+  m_Height: 7.2
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: -0.5}
+  m_Center: {x: 0, y: 0, z: -0.4}
 --- !u!1 &7037008306716436400
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +731,7 @@ GameObject:
   - component: {fileID: 135907298272038596}
   - component: {fileID: 4718245867808308087}
   - component: {fileID: 67266203065828693}
-  - component: {fileID: 3992141018232168264}
+  - component: {fileID: 2218103855618610187}
   m_Layer: 0
   m_Name: Spacecraft
   m_TagString: Untagged
@@ -825,8 +804,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3992141018232168264
-MeshCollider:
+--- !u!136 &2218103855618610187
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -835,10 +814,10 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8203945412849850714, guid: 36bfc09c7153ef64cbc523149057840a, type: 3}
+  m_Radius: 1.6
+  m_Height: 7.2
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.4, z: 0}
 --- !u!1 &8654902244855200824
 GameObject:
   m_ObjectHideFlags: 0
