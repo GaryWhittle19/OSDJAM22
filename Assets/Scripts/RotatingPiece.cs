@@ -163,17 +163,17 @@ public class RotatingPiece : MonoBehaviour
     }
 }
 
-[CustomEditor(typeof(RotatingPiece))]
-public class RotatingPieceEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        base.OnInspectorGUI();
+//[CustomEditor(typeof(RotatingPiece))]
+//public class RotatingPieceEditor : Editor
+//{
+//    public override void OnInspectorGUI()
+//    {
+//        base.OnInspectorGUI();
 
-        RotatingPiece puzzleController = (RotatingPiece)target;
-        if (GUILayout.Button("Generate Shape"))
-        {
-            puzzleController.Generate();
-        }
-    }
-}
+//        RotatingPiece puzzleController = (RotatingPiece)target;
+//        if (GUILayout.Button("Generate Shape"))
+//        {
+//            puzzleController.Generate();
+//        }
+//    }
+//}

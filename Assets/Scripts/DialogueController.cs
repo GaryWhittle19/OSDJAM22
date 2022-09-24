@@ -31,7 +31,7 @@ public class DialogueController : MonoBehaviour
 
         foreach (var diagInfo in info)
         {
-            TextAsset diagAsset = (TextAsset)AssetDatabase.LoadAssetAtPath("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name, typeof(TextAsset));
+            TextAsset diagAsset = Resources.Load<TextAsset>("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name);
             dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
         }
 
