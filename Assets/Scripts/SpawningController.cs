@@ -82,9 +82,12 @@ public class SpawningController : MonoBehaviour
             GameObject asteroidInstance = Instantiate(asteroidPrefab, Vector3.zero, Quaternion.identity);
 
             // Choose random mesh and add mesh collider
-            asteroidInstance.GetComponent<MeshFilter>().mesh = asteroidMeshes[Random.Range(0, asteroidMeshes.Length - 1)];
-            var meshCollider = asteroidInstance.AddComponent<MeshCollider>();
-            meshCollider.convex = true;
+            var asteroidMesh = asteroidMeshes[Random.Range(0, asteroidMeshes.Length - 1)];
+            var meshFilter = asteroidInstance.GetComponent<MeshFilter>();
+            meshFilter.sharedMesh = asteroidMesh;
+            
+            var meshCollider = asteroidInstance.GetComponent<MeshCollider>();
+            meshCollider.sharedMesh = meshFilter.sharedMesh;
 
             // Set spawn position, scale, and rotation axis/speed
             Vector3 spawnPosition;
