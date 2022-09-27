@@ -26,12 +26,12 @@ public class DialogueController : MonoBehaviour
 
     private void Awake()
     {
-        DirectoryInfo dir = new DirectoryInfo("Assets/DialogueJsons/AlienDialogue");
+        DirectoryInfo dir = new DirectoryInfo("Assets/Resources/AlienDialogue");
         FileInfo[] info = dir.GetFiles("*.json");
-
+        
         foreach (var diagInfo in info)
         {
-            TextAsset diagAsset = Resources.Load<TextAsset>("Assets/DialogueJsons/AlienDialogue/" + diagInfo.Name);
+            TextAsset diagAsset = Resources.Load<TextAsset>("AlienDialogue/" + Path.GetFileNameWithoutExtension(diagInfo.Name));
             dialogueInfo.Add(CreateFromJson(diagAsset.ToString()));
         }
 

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class CapsuleController : MonoBehaviour
 {
     // State of player ship
@@ -60,6 +59,7 @@ public class CapsuleController : MonoBehaviour
     [SerializeField] private Camera puzzleCamera;
     [SerializeField] private Camera replaceCamera;
     [SerializeField] private RenderTexture swapTex;
+    [SerializeField] private RadarController radarController;
     // For handling background switches
     [SerializeField] private Material menuNebula;
     [SerializeField] private Material menuStarfield;
@@ -99,10 +99,11 @@ public class CapsuleController : MonoBehaviour
         // Backgrounds need reset
         nebulaBackground.GetComponent<MeshRenderer>().material = menuNebula;
         starfieldBackground.GetComponent<MeshRenderer>().material = menuStarfield;
-
+        radarController = FindObjectOfType<RadarController>();
         spawningController = FindObjectOfType<SpawningController>();
 
         ClosePuzzleView();
+
     }
 
     // Update is called once per frame
@@ -146,6 +147,9 @@ public class CapsuleController : MonoBehaviour
                         int numberOfAliens = FindObjectOfType<DialogueController>().dialogueInfoCount;
                         spawningController.InitializeAliens(transform.position, numberOfAliens);
                         spawningController.InitializeAsteroidField(transform.position);
+                        // Boot up radar
+                        radarController.BootUpRadar();
+
                     }
                     break;
                 case Menu.selection.RETURNING:
@@ -165,8 +169,10 @@ public class CapsuleController : MonoBehaviour
                         currentBoundaryDistance = menuBoundaryDistance;
                         currentBlackoutStart = menuBlackoutStart;
                         transitionLogicPerformed = true;
-                        // Clean asteroids
+                        // Clean asteroids and aliens
                         spawningController.ResetSpawners();
+                        // Turn off radar
+                        radarController.ShutDownRadar();
                     }
                     break;
             }

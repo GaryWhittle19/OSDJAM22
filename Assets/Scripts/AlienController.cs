@@ -23,6 +23,7 @@ public class AlienController : MonoBehaviour
     private float dialogueTimeOut = 0.0f;
     private GameObject playerObject;
     private string[] dialogueLines = new string[0];
+    private RadarController radarController;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class AlienController : MonoBehaviour
         puzzle = FindObjectOfType<RingsPuzzle>().gameObject;
         puzzle.GetComponent<RingsPuzzle>().ResetVars(this.transform.gameObject);
         playerObject = FindObjectOfType<CapsuleController>().gameObject;
+        radarController = FindObjectOfType<RadarController>();
     }
 
     // Update is called once per frame
@@ -89,6 +91,7 @@ public class AlienController : MonoBehaviour
 
                 capsuleController.ClosePuzzleView();
                 capsuleController.SignalPuzzleComplete();
+                radarController.DisableBlip(gameObject);
                 break;
             default:
                 break;
