@@ -56,5 +56,6 @@ public class MusicManager : MonoBehaviour
         newSong.Play();
         newSong.volume = 1.0f;
         newSong.loop = true;
+        playingSong = newSong;
     }
 }

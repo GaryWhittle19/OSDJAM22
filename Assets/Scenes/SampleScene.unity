@@ -6658,7 +6658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicManagerObject: {fileID: 973961929}
   missionControlCamObject: {fileID: 1427665909}
-  entries: 020000000400000000000000
+  entries: 0400000000000000
   triggerPrefab: {fileID: 5104845324782612993, guid: 004fcc87d614d02489917ed503924577, type: 3}
   menuDistance: 4
 --- !u!1001 &1018015579
@@ -11498,6 +11498,10 @@ PrefabInstance:
       propertyPath: menuBlackoutStart
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
+      propertyPath: musicManagerObject
+      value: 
+      objectReference: {fileID: 973961929}
     - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
       propertyPath: starfieldBackground
       value: 

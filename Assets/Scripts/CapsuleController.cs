@@ -31,6 +31,9 @@ public class CapsuleController : MonoBehaviour
     private float cameraTransitionTimer = 0.0f;
     private bool transitionLogicPerformed = false;
     //
+    [Header( "RK_Music" )]
+    [SerializeField] GameObject musicManagerObject;
+    //
     [Header( "RK_Particles" )]
     [SerializeField] ParticleSystem psThrust;
     //
@@ -304,6 +307,7 @@ public class CapsuleController : MonoBehaviour
                 if (FindObjectOfType<DialogueController>().DialogueExhausted())
                 {
                     missionControlCamera.GetComponent<MissionControlCamera>().BeginTransition(Menu.selection.RETURNING);
+                    musicManagerObject.GetComponent<MusicManager>().SetQueuedSong( musicManagerObject.GetComponent<MusicManager>().menuMusic, 9.0f );
                 }
 
                 break;
