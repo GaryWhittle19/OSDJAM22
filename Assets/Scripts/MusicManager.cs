@@ -12,7 +12,7 @@ public class MusicManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playingSong = menuMusic;
     }
 
     // Update is called once per frame
@@ -22,20 +22,16 @@ public class MusicManager : MonoBehaviour
     }
 
     // Set a new song to be played
-    void SetQueuedSong( AudioSource songToPlay, float fadeDuration )
+    public void SetQueuedSong( AudioSource songToPlay, float fadeDuration )
     {
         if( songToPlay != playingSong )
         {
-            FadeOutSong( playingSong, fadeDuration );
-        }
-        else
-        {
-            songToPlay.Play();
+            StartCoroutine( FadeOutThenPlay( playingSong, songToPlay, fadeDuration ) );// FadeOutSong( playingSong, fadeDuration );
         }
     }
 
     // Update is called once per frame
-    IEnumerator FadeOutSong( AudioSource song, float duration )
+    IEnumerator FadeOutThenPlay( AudioSource song, AudioSource newSong, float duration )
     {
         float timePassed = 0f;
         while ( timePassed < duration )
@@ -56,5 +52,9 @@ public class MusicManager : MonoBehaviour
             // and continue from here in the next one
             yield return null;
         }
+        song.Stop();
+        newSong.Play();
+        newSong.volume = 1.0f;
+        newSong.loop = true;
     }
 }

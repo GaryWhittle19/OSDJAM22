@@ -1,8 +1,8 @@
 {
 	"characterName": "Gabe",
 	"dialogueLines": [
-		"DIAG THREE - longer text demonstration here which I'm showing the limits of the system with",
-		"Line two of diag THREE",
-		"Line three of diag THREE"
+		"Who goes there?",
+		"I'm stranded out here. Torchship Zeta has been lost.",
+		"We'll meet again, lifeform."
 	]
 }

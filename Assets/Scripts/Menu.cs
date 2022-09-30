@@ -15,6 +15,8 @@ public class Menu : MonoBehaviour
         INTRO,
         RETURNING // Note: returning to menu
     }
+    [Header( "RK_Music" )]
+    [SerializeField] private GameObject musicManagerObject;
     [Header( "RK_Camera" )]
     [SerializeField] private GameObject missionControlCamObject;
     [Header( "RK_MenuSetup" )]
@@ -63,6 +65,7 @@ public class Menu : MonoBehaviour
         {
             case selection.STORY:
                 missionControlCamObject.GetComponent<MissionControlCamera>().BeginTransition(selection.STORY);
+                musicManagerObject.GetComponent<MusicManager>().SetQueuedSong( musicManagerObject.GetComponent<MusicManager>().storyMusic, 9.0f );
                 break;
             // NOTE: Stretch goals include setting up these menu options!
             //case selection.ENDLESS:
