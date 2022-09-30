@@ -9227,14 +9227,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hello this is a dialogue box...
+  m_text: 'Connection established...
 
-    This is a second line.
 
-    And then
-    there''s a third one hi :)
-
-    meep morp and all that'
+    Multiple anomalous signals detected...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 17e94d2ff4879454eb3fa4cfee492cab, type: 2}
   m_sharedMaterial: {fileID: 4217750926799350297, guid: 17e94d2ff4879454eb3fa4cfee492cab, type: 2}
@@ -11453,7 +11449,7 @@ PrefabInstance:
     - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
       propertyPath: swapTex
       value: 
-      objectReference: {fileID: 8400000, guid: 79a4f406c430a9448bde66c95d001c5d, type: 2}
+      objectReference: {fileID: 8400000, guid: 42baaa141b5db1847b7293ceca8e5bc9, type: 2}
     - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
       propertyPath: menuNebula
       value: 
@@ -11477,7 +11473,7 @@ PrefabInstance:
     - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
       propertyPath: replaceCamera
       value: 
-      objectReference: {fileID: 906415116}
+      objectReference: {fileID: 808357430}
     - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
       propertyPath: connectionText
       value: 
