@@ -89,6 +89,8 @@ public class SpawningController : MonoBehaviour
             var meshCollider = asteroidInstance.GetComponent<MeshCollider>();
             meshCollider.sharedMesh = meshFilter.sharedMesh;
 
+            Physics.SyncTransforms();
+
             // Set spawn position, scale, and rotation axis/speed
             Vector3 spawnPosition;
             float asteroidScale = Random.Range(asteroidScaleRange.x, asteroidScaleRange.y);
@@ -96,8 +98,9 @@ public class SpawningController : MonoBehaviour
             rotationAxis.Normalize();
             rotationAxis *= Random.Range(asteroidRotationSpeed.x, asteroidRotationSpeed.y) * asteroidScale;
 
+            float colliderSize = meshCollider.bounds.size.magnitude / 2.0f;
             // Get an empty spawn position
-            if (GetSpawnPosition(out spawnPosition, asteroidScale * 1.1f, asteroidSpawnRange, origin) == false)
+            if (GetSpawnPosition(out spawnPosition, colliderSize, asteroidSpawnRange, origin) == false)
                 return;
 
             // Apply position, scale, rotation

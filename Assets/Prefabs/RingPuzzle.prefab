@@ -509,7 +509,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2.15
+      scalar: 1.9
       minScalar: 5
       maxCurve:
         serializedVersion: 2
