@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.419
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.29408264, g: 0.32876545, b: 0.38333243, a: 0.419}
+  m_IndirectSpecularColor: {r: 0.24295741, g: 0.24826112, b: 0.23294097, a: 0.419}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: 7822ac2081b3b2340b614f0fe469f685, type: 2}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 6e07dd931ee45bb48ada6abbffc9212a, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -236,7 +236,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -336,6 +336,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -575,6 +579,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &60356294 stripped
@@ -648,6 +656,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
       propertyPath: m_Name
       value: RetroChair_FBX (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
@@ -729,7 +741,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -900,7 +912,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -994,7 +1006,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -1088,7 +1100,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -1189,6 +1201,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!1001 &203768601
@@ -1257,6 +1273,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
       propertyPath: m_Name
       value: ColaCrate
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
@@ -1333,7 +1353,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -1427,7 +1447,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -1594,7 +1614,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -1729,7 +1749,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -1830,6 +1850,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &278253774 stripped
@@ -1903,6 +1927,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -1979,7 +2007,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -2240,6 +2268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &364535596 stripped
@@ -2315,7 +2347,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -2408,6 +2440,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Console1_FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
 --- !u!1001 &393015700
@@ -2485,6 +2521,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &393015701 stripped
@@ -2560,7 +2600,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -2652,6 +2692,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
       propertyPath: m_Name
       value: Mug_FBX (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
@@ -2776,6 +2820,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &431047627 stripped
@@ -2849,6 +2897,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
       propertyPath: m_Name
       value: Mug_FBX (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
@@ -2930,7 +2982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
@@ -3077,7 +3129,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -3171,7 +3223,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -3496,7 +3548,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -3594,6 +3646,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &574059848 stripped
@@ -3669,7 +3725,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -3768,7 +3824,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -3844,6 +3900,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!1 &635990254
@@ -3914,7 +3974,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -4013,7 +4073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -4096,6 +4156,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (23)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -4278,7 +4342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -4482,6 +4546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mug_FBX (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
 --- !u!4 &679864637 stripped
@@ -4555,6 +4623,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -4668,6 +4740,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &769427937 stripped
@@ -4741,6 +4817,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
       propertyPath: m_Name
       value: ColaCrate (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
@@ -4822,7 +4902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
@@ -4905,6 +4985,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -5056,6 +5140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &812526327 stripped
@@ -5129,6 +5217,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
       propertyPath: m_Name
       value: RetroChair_FBX (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
@@ -5204,6 +5296,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &822160423 stripped
@@ -5277,6 +5373,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -5468,6 +5568,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &831732563 stripped
@@ -5650,7 +5754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c1f20be7f694ded4094d971e1d4ef9e4, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f20be7f694ded4094d971e1d4ef9e4, type: 3}
@@ -5722,7 +5826,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -5814,6 +5918,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
       propertyPath: m_Name
       value: RetroChair_FBX (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
@@ -5976,7 +6084,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -6077,6 +6185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &936592921 stripped
@@ -6152,7 +6264,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -6244,6 +6356,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -6367,6 +6483,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &980013930 stripped
@@ -6448,6 +6568,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -6534,7 +6658,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicManagerObject: {fileID: 973961929}
   missionControlCamObject: {fileID: 1427665909}
-  entries: 020000000400000000000000
+  entries: 0400000000000000
   triggerPrefab: {fileID: 5104845324782612993, guid: 004fcc87d614d02489917ed503924577, type: 3}
   menuDistance: 4
 --- !u!1001 &1018015579
@@ -6610,7 +6734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -6686,6 +6810,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1028309719 stripped
@@ -6759,6 +6887,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
       propertyPath: m_Name
       value: RetroChair_FBX (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
@@ -6834,6 +6966,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1045115171 stripped
@@ -6908,6 +7044,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1076638910 stripped
@@ -6981,6 +7121,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -7163,7 +7307,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -7256,6 +7400,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1166500830 stripped
@@ -7331,7 +7479,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -7419,6 +7567,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 5520e3b9735d0164dbca7c79d702c1af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7054325398044913532, guid: 5520e3b9735d0164dbca7c79d702c1af, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5520e3b9735d0164dbca7c79d702c1af, type: 3}
       propertyPath: m_Name
@@ -7553,6 +7705,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 65fdce0a80856814aa1df8895b8880c9, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65fdce0a80856814aa1df8895b8880c9, type: 3}
 --- !u!4 &1221090087 stripped
@@ -7627,6 +7783,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &1221573148 stripped
@@ -7700,6 +7860,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
       propertyPath: m_Name
       value: RetroChair_FBX (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
@@ -7788,6 +7952,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1245561556 stripped
@@ -7863,7 +8031,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -7957,7 +8125,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -8046,6 +8214,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4987352189107229128, guid: 08bcc6d1440278c48be74e5176209b71, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 08bcc6d1440278c48be74e5176209b71, type: 3}
       propertyPath: m_Name
       value: Console3_ButtonCutout_FBX
@@ -8128,6 +8300,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Console2_FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
 --- !u!1 &1257712016
@@ -8198,7 +8374,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -8291,6 +8467,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &1272709766 stripped
@@ -8364,6 +8544,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
       propertyPath: m_Name
       value: Mug_FBX (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
@@ -8533,6 +8717,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &1297769659 stripped
@@ -8608,7 +8796,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -8702,7 +8890,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -8795,6 +8983,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1332317886 stripped
@@ -8877,6 +9069,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1350509175 stripped
@@ -8950,6 +9146,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -9194,7 +9394,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -9476,7 +9676,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -9553,7 +9753,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -9744,7 +9944,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -9838,7 +10038,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -9930,6 +10130,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (16)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -10103,6 +10307,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1454820964 stripped
@@ -10178,7 +10386,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -10272,7 +10480,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -10366,7 +10574,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -10459,6 +10667,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1515262428 stripped
@@ -10534,7 +10746,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -10635,6 +10847,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1532785963 stripped
@@ -10715,7 +10931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
@@ -10896,7 +11112,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
@@ -10978,7 +11194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
@@ -11055,7 +11271,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -11149,7 +11365,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -11283,6 +11499,10 @@ PrefabInstance:
       value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
+      propertyPath: musicManagerObject
+      value: 
+      objectReference: {fileID: 973961929}
+    - target: {fileID: 8654902244448172461, guid: 25f97df0c44cadb459eec9fe18db83a9, type: 3}
       propertyPath: starfieldBackground
       value: 
       objectReference: {fileID: 568504185}
@@ -11367,6 +11587,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1574683553 stripped
@@ -11442,7 +11666,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -11535,6 +11759,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &1626771801 stripped
@@ -11608,6 +11836,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
       propertyPath: m_Name
       value: RetroChair_FBX (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
@@ -11690,6 +11922,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -11864,7 +12100,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -11958,7 +12194,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -12052,7 +12288,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -12145,6 +12381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mug_FBX (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
 --- !u!4 &1699950636 stripped
@@ -12227,6 +12467,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1703358272 stripped
@@ -12302,7 +12546,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -12396,7 +12640,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -12490,7 +12734,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -12584,7 +12828,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -12687,7 +12931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48dc5fcb43fec8f40b9c800866dfc28a, type: 3}
@@ -12764,7 +13008,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -12864,6 +13108,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -13044,6 +13292,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1772105496 stripped
@@ -13119,7 +13371,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -13219,6 +13471,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -13359,6 +13615,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &1831508368 stripped
@@ -13434,7 +13694,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -13528,7 +13788,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -13620,6 +13880,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
       propertyPath: m_Name
       value: Mug_FBX (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
@@ -13802,7 +14066,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -13895,6 +14159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1872586175 stripped
@@ -13977,6 +14245,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Papers_FBX (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
 --- !u!4 &1877773201 stripped
@@ -14051,6 +14323,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RetroChair_FBX (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214c8cf6424ceff4995b6e15863953ee, type: 3}
 --- !u!4 &1895894909 stripped
@@ -14124,6 +14400,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
       propertyPath: m_Name
       value: Mug_FBX (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
@@ -14200,7 +14480,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -14298,6 +14578,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaBottle (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
 --- !u!4 &1913166770 stripped
@@ -14372,6 +14656,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mug_FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
 --- !u!1 &1913525471
@@ -14442,7 +14730,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -14536,7 +14824,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -14636,6 +14924,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
       propertyPath: m_Name
       value: Papers_FBX (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5b412329fe94664eb601e11034e0a48, type: 3}
@@ -14811,7 +15103,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -14905,7 +15197,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -14999,7 +15291,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 9.8
@@ -15093,7 +15385,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 0.4
@@ -15186,6 +15478,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ColaCrate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db3aa107bf9f64f488feaf7e32c46d22, type: 3}
 --- !u!4 &2086654818 stripped
@@ -15260,6 +15556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mug_FBX (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56a6267af64133c4f9ac8a0855b599b2, type: 3}
 --- !u!4 &2123075086 stripped
@@ -15333,6 +15633,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
       propertyPath: m_Name
       value: ColaBottle (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
@@ -15451,7 +15755,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1aadee7432de844fa2620ab009179ee, type: 3}
