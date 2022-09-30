@@ -2994,6 +2994,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: RingPuzzle
       objectReference: {fileID: 0}
+    - target: {fileID: 5758113408888915081, guid: a769f39c9cec3cf4d8777a0339525bd4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 22a6dc98a9b66e345876bceccecdf658, type: 2}
+    - target: {fileID: 5758113409287836474, guid: a769f39c9cec3cf4d8777a0339525bd4, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a769f39c9cec3cf4d8777a0339525bd4, type: 3}
 --- !u!4 &471278516 stripped
@@ -3412,13 +3420,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 537195720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4879947, y: -9.95669, z: 491.321}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.728584, y: -34.699062, z: 1.4675903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 973961930}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &556575859
 GameObject:
@@ -4306,7 +4314,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 27806122ddda8b64e949f03c29514572, type: 3}
+  m_audioClip: {fileID: 8300000, guid: c0259dc57d9d19b4d8e1006cf16971af, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0
   m_Pitch: 1
@@ -4399,13 +4407,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666165463}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4879947, y: -9.95669, z: 491.321}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.728584, y: -34.699062, z: 1.4675903}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 973961930}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &679864636
 PrefabInstance:
@@ -6244,6 +6252,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88ff739ac98b8164c8ed1798940cfb72, type: 3}
   m_PrefabInstance: {fileID: 960693996}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &973961929
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973961930}
+  - component: {fileID: 973961931}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973961930
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973961929}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.2165785, y: 24.742373, z: 489.85342}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 537195722}
+  - {fileID: 666165465}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &973961931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973961929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adcda4ebc8efbdf4e82dde72f0848961, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuMusic: {fileID: 537195721}
+  storyMusic: {fileID: 666165464}
 --- !u!1001 &980013929
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6476,6 +6532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6851e76543d21a849af4c9123aded78b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  musicManagerObject: {fileID: 973961929}
   missionControlCamObject: {fileID: 1427665909}
   entries: 020000000400000000000000
   triggerPrefab: {fileID: 5104845324782612993, guid: 004fcc87d614d02489917ed503924577, type: 3}
@@ -7381,6 +7438,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5520e3b9735d0164dbca7c79d702c1af, type: 3}
+--- !u!1 &1198808703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1198808705}
+  - component: {fileID: 1198808704}
+  m_Layer: 0
+  m_Name: SFXManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1198808704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198808703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa29bd09ff8177f44a79ac262d0dbcf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1198808705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198808703}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 14.2165785, y: 24.742373, z: 489.85342}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1203102110
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9023,7 +9124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DialogueBox: {fileID: 1407525790}
-  textResetSpeed: 0.2
+  textResetSpeed: 0.06
   dialogueInfoCount: 0
 --- !u!1 &1426725408
 GameObject:
@@ -13147,7 +13248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7343789287579629887, guid: ddbf58399c1db4348aa289320a1b14f9, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7343789287579629887, guid: ddbf58399c1db4348aa289320a1b14f9, type: 3}
       propertyPath: m_LocalPosition.x
